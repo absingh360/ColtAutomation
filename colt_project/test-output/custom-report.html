@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>TestNG Report</title><style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}</style></head><body><center><h1>TestNG Report - 2017-11-13 12:16:42 AM</h1></center><table><tr><th>Test</th><th> Passed</th><th> Skipped</th><th> Failed</th><th>Seconds</th><th>Included Groups</th><th>Excluded Groups</th></tr><tr><th colspan="7">Colt_Regression</th></tr><tr><td><a href="#t0">Regression_Test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">6</td><td class="num">154.52</td><td></td><td></td></tr><tr><th>Total</th><th class="num">0</th><th class="num">0</th><th class="num attn">6</th><th class="num">154.52</th><th colspan="2"></th></tr></table><table><thead><tr><th>Class</th><th>Method</th><th>Name</th><th>Start</th><th>Seconds</th></tr></thead><tbody><tr><th colspan="5">Colt_Regression</th></tr></tbody><tbody id="t0"><tr><th colspan="5">Regression_Test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="6">com.scripts.RegressionFlow</td><td><a href="#m0">test_01_Navigate_From_C4C_To_CPQ</a></td><td rowspan="1">test_01_Navigate_From_C4C_To_CPQ</td><td rowspan="1">00:14:25 AM</td><td rowspan="1">26.35</td></tr><tr class="failedeven"><td><a href="#m1">test_02_Add_Edit_Delete_EthernetLine</a></td><td rowspan="1">test_02_Add_Edit_Delete_EthernetLine</td><td rowspan="1">00:14:56 AM</td><td rowspan="1">39.64</td></tr><tr class="failedeven"><td><a href="#m2">test_03__AddingHubSpoke_And_Apply_Discount</a></td><td rowspan="1">test_03__AddingHubSpoke_And_Apply_Discount</td><td rowspan="1">00:15:40 AM</td><td rowspan="1">7.05</td></tr><tr class="failedeven"><td><a href="#m3">test_04_ApproveQuoteByDealPriceUser</a></td><td rowspan="1">test_04_ApproveQuoteByDealPriceUser</td><td rowspan="1">00:15:52 AM</td><td rowspan="1">10.07</td></tr><tr class="failedeven"><td><a href="#m4">test_05_ApproveQuoteBySalesApprover</a></td><td rowspan="1">test_05_ApproveQuoteBySalesApprover</td><td rowspan="1">00:16:06 AM</td><td rowspan="1">10.12</td></tr><tr class="failedeven"><td><a href="#m5">test_06_ApproveQuoteByFinanceApprover</a></td><td rowspan="1">test_06_ApproveQuoteByFinanceApprover</td><td rowspan="1">00:16:20 AM</td><td rowspan="1">10.07</td></tr></tbody></table><h2>Regression_Test</h2><h3 id="m0">com.scripts.RegressionFlow#test_01_Navigate_From_C4C_To_CPQ ( test_01_Navigate_From_C4C_To_CPQ )</h3><table class="result"><tr><th>Messages</th></tr><tr><td><div class="messages">Navigating C4C Application URl: https://my333714-sso.crm.ondemand.com<br/>**************Abhishek.Bahadur@colt.netcom.pages.C4CAppPage@4ae33a11</div></td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: expected [true] but found [false]
+	at com.util.BasePage.verifyTitle(BasePage.java:195)
+	at com.scripts.RegressionFlow.test_01_Navigate_From_C4C_To_CPQ(RegressionFlow.java:43)
+... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m1">com.scripts.RegressionFlow#test_02_Add_Edit_Delete_EthernetLine ( test_02_Add_Edit_Delete_EthernetLine )</h3><table class="result"><tr><th>Messages</th></tr><tr><td><div class="messages">Switching on CQP tab</div></td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator &apos;By.id: readonly_1_opportunityName_t&apos; (tried for 5 second(s) with 500 MILLISECONDS interval)
+	at com.util.BasePage.waitForElementVisible(BasePage.java:358)
+	at com.util.BasePage.isElementPresent(BasePage.java:402)
+	at com.util.BasePage.verifyElementText(BasePage.java:430)
+	at com.pages.Transaction_Page.verifyOpportunity_And_AccountInfoInCPQ(Transaction_Page.java:487)
+	at com.scripts.RegressionFlow.test_02_Add_Edit_Delete_EthernetLine(RegressionFlow.java:62)
+... Removed 26 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m2">com.scripts.RegressionFlow#test_03__AddingHubSpoke_And_Apply_Discount ( test_03__AddingHubSpoke_And_Apply_Discount )</h3><table class="result"><tr><th>Messages</th></tr><tr><td><div class="messages">Click on to AddProduct button<br/>Verifying the title &apos;Product List&apos;</div></td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;add_product&quot;}
+  (Session info: chrome=61.0.3163.100)
+  (Driver info: chromedriver=2.30.477700 (0057494ad8732195794a7b32078424f92a5fce41),platform=Windows NT 10.0.10240 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 5.03 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;3.4.0&apos;, revision: &apos;unknown&apos;, time: &apos;unknown&apos;
+System info: host: &apos;360NDCPC085&apos;, ip: &apos;192.168.8.94&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_144&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.30.477700 (0057494ad8732195794a7b32078424f92a5fce41), userDataDir=C:\Users\HIMANS~1\AppData\Local\Temp\scoped_dir7712_31342}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=61.0.3163.100, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: 73a489fd0c787bc048714a3f32fd5e63
+*** Element info: {Using=id, value=add_product}
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:671)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:410)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:453)
+	at org.openqa.selenium.By$ById.findElement(By.java:218)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:402)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at com.sun.proxy.$Proxy11.getWrappedElement(Unknown Source)
+	at org.openqa.selenium.remote.internal.WebElementToJsonConverter.apply(WebElementToJsonConverter.java:50)
+	at com.google.common.collect.Iterators$7.transform(Iterators.java:750)
+	at com.google.common.collect.TransformedIterator.next(TransformedIterator.java:47)
+	at com.google.common.collect.Iterators.addAll(Iterators.java:367)
+	at com.google.common.collect.Lists.newArrayList(Lists.java:165)
+	at com.google.common.collect.Lists.newArrayList(Lists.java:150)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:571)
+	at com.util.BasePage.javascriptScrollIntoView(BasePage.java:295)
+	at com.pages.Transaction_Page.clickOnAddProductBtn(Transaction_Page.java:258)
+	at com.pages.Product_List_Page.AddproductType(Product_List_Page.java:30)
+	at com.scripts.RegressionFlow.test_03__AddingHubSpoke_And_Apply_Discount(RegressionFlow.java:80)
+... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m3">com.scripts.RegressionFlow#test_04_ApproveQuoteByDealPriceUser ( test_04_ApproveQuoteByDealPriceUser )</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator &apos;By.xpath: //a[contains(@href,&apos;/logout.jsp&apos;)]&apos; (tried for 5 second(s) with 500 MILLISECONDS interval)
+	at com.util.BasePage.waitForElementVisible(BasePage.java:358)
+	at com.util.BasePage.isElementPresent(BasePage.java:402)
+	at com.util.BasePage.clickOn(BasePage.java:122)
+	at com.util.BasePage.click(BasePage.java:129)
+	at com.util.BasePage.logOutFromCPQ(BasePage.java:521)
+	at com.scripts.RegressionFlow.test_04_ApproveQuoteByDealPriceUser(RegressionFlow.java:101)
+... Removed 26 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m4">com.scripts.RegressionFlow#test_05_ApproveQuoteBySalesApprover ( test_05_ApproveQuoteBySalesApprover )</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator &apos;By.xpath: //a[contains(@href,&apos;/logout.jsp&apos;)]&apos; (tried for 5 second(s) with 500 MILLISECONDS interval)
+	at com.util.BasePage.waitForElementVisible(BasePage.java:358)
+	at com.util.BasePage.isElementPresent(BasePage.java:402)
+	at com.util.BasePage.clickOn(BasePage.java:122)
+	at com.util.BasePage.click(BasePage.java:129)
+	at com.util.BasePage.logOutFromCPQ(BasePage.java:521)
+	at com.scripts.RegressionFlow.test_05_ApproveQuoteBySalesApprover(RegressionFlow.java:124)
+... Removed 26 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m5">com.scripts.RegressionFlow#test_06_ApproveQuoteByFinanceApprover ( test_06_ApproveQuoteByFinanceApprover )</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator &apos;By.xpath: //a[contains(@href,&apos;/logout.jsp&apos;)]&apos; (tried for 5 second(s) with 500 MILLISECONDS interval)
+	at com.util.BasePage.waitForElementVisible(BasePage.java:358)
+	at com.util.BasePage.isElementPresent(BasePage.java:402)
+	at com.util.BasePage.clickOn(BasePage.java:122)
+	at com.util.BasePage.click(BasePage.java:129)
+	at com.util.BasePage.logOutFromCPQ(BasePage.java:521)
+	at com.scripts.RegressionFlow.test_06_ApproveQuoteByFinanceApprover(RegressionFlow.java:145)
+... Removed 26 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p></body></html>

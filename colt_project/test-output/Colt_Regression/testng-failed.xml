@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Colt_Regression]">
+  <listeners>
+    <listener class-name="com.report.CustomReport"/>
+    <listener class-name="com.report.ExtentReporterNG"/>
+  </listeners>
+  <test name="Regression_Test(failed)">
+    <classes>
+      <class name="com.scripts.RegressionFlow">
+        <methods>
+          <include name="test_02_Add_Edit_Delete_EthernetLine"/>
+          <include name="test_06_ApproveQuoteByFinanceApprover"/>
+          <include name="test_05_ApproveQuoteBySalesApprover"/>
+          <include name="doLogin"/>
+          <include name="closeConn"/>
+          <include name="test_04_ApproveQuoteByDealPriceUser"/>
+          <include name="before"/>
+          <include name="startTest"/>
+          <include name="tearDownSuite"/>
+          <include name="test_03__AddingHubSpoke_And_Apply_Discount"/>
+          <include name="test_01_Navigate_From_C4C_To_CPQ"/>
+          <include name="afterMethod"/>
+        </methods>
+      </class> <!-- com.scripts.RegressionFlow -->
+    </classes>
+  </test> <!-- Regression_Test(failed) -->
+</suite> <!-- Failed suite [Colt_Regression] -->

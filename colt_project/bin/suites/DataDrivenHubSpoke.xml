@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="suites">
+	<listeners>
+		<listener class-name="com.report.CustomReport" />
+		<listener class-name="com.report.ExtentReporterNG" />
+	</listeners>
+	<test name="Test">
+		<classes>
+			<class name="com.scripts.DataDrivenForEthernet">
+				<methods>
+					<include
+						name="test_03_check_Connectivity_And_Price_Of_sites_On_Basis_Of_UI_Segment" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+	<test name="Test2">
+		<classes>
+			<class name="com.scripts.Sample2" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

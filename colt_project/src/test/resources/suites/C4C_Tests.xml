@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Colt_Suite">
+	<listeners>
+		<listener class-name="com.report.CustomReport" />
+		<listener class-name="com.report.ExtentReporterNG" />
+	</listeners>
+	<test name="Check_Connectivity_Prices" junit="false" preserve-order="true">
+		<classes>
+			<class name="com.scripts.C4CApplicationTests">
+			</class>
+
+		</classes>
+	</test>
+</suite>
