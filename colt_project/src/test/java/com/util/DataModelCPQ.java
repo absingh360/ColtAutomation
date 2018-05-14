@@ -48,6 +48,8 @@ public class DataModelCPQ {
 	String buildingNumber = null;
 	String buildingNumber2 = null;
 	String currency = null ;
+	String interfaceValue = null;
+	
 	//String servicebandwidth = null;
 /*
 	public String getServicebandwidth() {
@@ -70,6 +72,17 @@ public class DataModelCPQ {
 		return pricingCity2;
 	}
 
+	public String getInterfaceValue()
+	{
+		return interfaceValue;
+	}
+	
+	
+	public void setInterfaceValue(String interfaceValue)
+	{
+		this.interfaceValue = interfaceValue;
+	}
+	
 	public void setPricingCity2(String pricingCity2) {
 		this.pricingCity2 = pricingCity2;
 	}
@@ -438,7 +451,7 @@ public class DataModelCPQ {
 				+ fastTrack + ", sync=" + sync + ", customer=" + customer + ", country=" + country + ", contract_Term="
 				+ contract_Term + ", site_A_Add=" + site_A_Add + ", site_B_Add=" + site_B_Add + ", coverage=" + coverage
 				+ ", building_Type=" + building_Type + ", resiliency=" + resiliency + ", segment=" + segment
-				+ ", bandWidth=" + bandWidth + ", quoteName=" + quoteName + "]";
+				+ ", bandWidth=" + bandWidth + ", interfaceValue=" + interfaceValue + ", quoteName=" + quoteName + "]";
 	}
 
 }

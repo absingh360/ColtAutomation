@@ -57,10 +57,10 @@ public abstract class DriverTestCase {
 	protected static final int DEFAULT_WAIT_4_PAGE = 40;
 	protected static WebDriverWait ajaxWait;
 	protected long timeout = 60;
+	
+	// pages object initialization
 	public static OpportunitiesPage opportunityPage;
 	public static Connection listPriceConnection;
-
-	// pages object initialization
 	protected static Commerce_Management_Page commerceManagementPage;
 	protected static Model_Configuration_Page modelConfigurationPage;
 	protected static Product_List_Page productListPage;

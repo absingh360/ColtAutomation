@@ -26,8 +26,8 @@ import com.util.Utilities;
 
 public class SampleTest extends DriverTestCase {
 
-	private String oppID = "261425";
-	// ENTS - private String oppID = "261511";
+	 private String oppID = "261425";
+	//private String oppID = "261511";
 	// WHSS - 261425
 	private String oppName;
 	int rowNumber = 2;
@@ -60,8 +60,8 @@ public class SampleTest extends DriverTestCase {
 		// getWebDriver().navigate().to(c4c_url);
 		getWebDriver().navigate().to(c4c_testurl);
 		reportLog("Naviagte to the Application Url");
-		//c4cappPage._waitForJStoLoad();
-		//c4cappPage.waitForAjaxRequestsToComplete();
+		// c4cappPage._waitForJStoLoad();
+		// c4cappPage.waitForAjaxRequestsToComplete();
 		c4cappPage.loginInToC4CApplication(c4c_userName, c4c_Password);
 		c4cappPage.verifyTitle("SAP Hybris Cloud for Customer");
 		c4cappPage.goToOpportunityPage();
@@ -80,23 +80,39 @@ public class SampleTest extends DriverTestCase {
 		transactionPage.sendKeys(transactionPage.quoteDescription, Description);
 		reportLog("Enter description: " + Description);
 
-		productListPage.AddproductType("Ethernet");
+		// productListPage.AddproductType("Ethernet");
+
+		productListPage.AddproductType("Hub");
+		
+		modelConfigurationPage.enterHubAddress("10 Gbps", "3, Julius-Tandler-Platz, Vienna, Austria, 1090");
+
+		modelConfigurationPage.checkConnectivity();
+
+		modelConfigurationPage.navigateToSiteDetailPage();
+		
+		reportLog("Select bandwidth as : "+ "10 Gbps" );
+		modelConfigurationPage.selectBandwidth("10 Gbps");
+		
+		
+		modelConfigurationPage.saveQuoteButton();
+		//reportLog("Click on save to quote button");
+
+		productListPage.AddproductType("Spoke");
+		reportLog("Add Spoke Product");
+		
+		modelConfigurationPage.selectHub();
+
 
 
 	}
-
 	@Test(dataProviderClass = DataProviderRepository.class, dataProvider = "javascriptInjection", priority = 2)
-	public void testPrices(Object obj) throws InterruptedException, Exception {
+	public void testSpokePrices(Object obj) throws InterruptedException, Exception {
 
 		DataModelCPQ cpqModel = (DataModelCPQ) obj;
 
-		String pricingSegement = cpqModel.getSegment();
-		if (pricingSegement.equals("ENTS")) {
-			listPriceConnection = ExcelDataBaseConnector.createConnection("SheetPriceENTS");
-		} else if (pricingSegement.equals("WHSS")) {
-			listPriceConnection = ExcelDataBaseConnector.createConnection("SheetPriceWHSS");
-		}
+		listPriceConnection = ExcelDataBaseConnector.createConnection("SheetPriceSpoke");
 
+		boolean onNetConnectivity = false;
 		String currencyType = "EUR";
 		String expectedMrcPrice = ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel, "Zone 1 MRC")
 				.replaceAll(",", "");
@@ -126,7 +142,7 @@ public class SampleTest extends DriverTestCase {
 
 		reportLog("Expected NRC Prices is : " + NetNRC_Price + " And MRC Price is : " + NetMRC_Price);
 
-		modelConfigurationPage.enterAddresses(cpqModel.getSite_A_Add(), cpqModel.getSite_B_Add());
+		modelConfigurationPage.enterSpokeAddress(cpqModel.getSite_A_Add());
 
 		modelConfigurationPage.click(modelConfigurationPage.update);
 		reportLog("Click on to Update button");
@@ -139,41 +155,38 @@ public class SampleTest extends DriverTestCase {
 		modelConfigurationPage.configureProduct(cpqModel);
 
 		// String buildingType = modelConfigurationPage.getBuildingType();
-		
-		List<String>  buildings = new ArrayList<>();
-		String buildingType = modelConfigurationPage.actualBuildingType.getText();
-		buildings.add( modelConfigurationPage.buildingTypes.get(0).getText());
-		buildings.add(modelConfigurationPage.buildingTypes.get(1).getText());
-		
-		String expectedCoverage = cpqModel.getCoverage();
 
-		String actualCoverage = modelConfigurationPage.siteCoverage.getText();
+		// String buildingType = modelConfigurationPage.actualBuildingType.getText();
+
+		// String coverage = modelConfigurationPage.siteCoverage.getText();
+
+		List<String> buildings = new ArrayList<>();
+		String buildingType = modelConfigurationPage.actualBuildingType.getText();
+		buildings.add(modelConfigurationPage.buildingTypes.get(0).getText());
 
 		String NrcPrice = null;
 		String MrcPrice = null;
-		try
-		{
-		String actualNrcPrice = modelConfigurationPage.nrcPrice.getText();
+		try {
+			String actualNrcPrice = modelConfigurationPage.nrcPrice.getText();
 
-		 NrcPrice = modelConfigurationPage.getActualPrice(actualNrcPrice);
-		String actualMrcPrice = modelConfigurationPage.mrcPrice.getText();
+			NrcPrice = modelConfigurationPage.getActualPrice(actualNrcPrice);
+			String actualMrcPrice = modelConfigurationPage.mrcPrice.getText();
 
-		 MrcPrice = modelConfigurationPage.getActualPrice(actualMrcPrice);
+			MrcPrice = modelConfigurationPage.getActualPrice(actualMrcPrice);
+
+			onNetConnectivity = modelConfigurationPage.checktOnNetConnectivity();
+
+		} catch (ElementNotVisibleException e) {
+			System.out.println("CheckConnectivity button not available");
+		} catch (NoSuchElementException e) {
+			System.out.println("CheckConnectivity button not available");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			// modelConfigurationPage.manuallyEnterHub.click();
+			System.out.println("CheckConnectivity button not available ");
 
 		}
-		 catch (ElementNotVisibleException e) {
-				System.out.println("CheckConnectivity button not available");
-			}
-			catch(NoSuchElementException e)
-			{
-				System.out.println("CheckConnectivity button not available");
-			} 
-			catch (Exception e) {
-	            // TODO Auto-generated catch block
-				//modelConfigurationPage.manuallyEnterHub.click();
-				System.out.println("CheckConnectivity button not available ");
-	        }
-		
+
 		modelConfigurationPage.navigateToSiteAddress();
 
 		System.out.println("Actual NRC Price is : " + NrcPrice + " And MRC Price is : " + MrcPrice);
@@ -184,23 +197,20 @@ public class SampleTest extends DriverTestCase {
 
 		ex.writeData(cpqModel.getSegment(), rowNumber, 0);
 		ex.writeData(cpqModel.getSite_A_Add(), rowNumber, 1);
-		ex.writeData(cpqModel.getSite_B_Add(), rowNumber, 2);
 		ex.writeData(NetMRC_Price, rowNumber, 3);
 		ex.writeData(NetNRC_Price, rowNumber, 4);
 		ex.writeData(MrcPrice, rowNumber, 5);
 		ex.writeData(NrcPrice, rowNumber, 6);
 		ex.writeData(cpqModel.getBandWidth(), rowNumber, 7);
 		ex.writeData(cpqModel.getResiliency(), rowNumber, 8);
-		ex.writeData(expectedCoverage, rowNumber, 9);
-		ex.writeData(actualCoverage, rowNumber, 10);
-		ex.writeData(buildings.get(0), rowNumber, 11);
-		ex.writeData(buildings.get(0), rowNumber, 12);
-		ex.writeData(Long.toString(totalTime), rowNumber, 13);
-		
+		ex.writeData(buildings.get(0), rowNumber, 9);
+		ex.writeData(String.valueOf(onNetConnectivity), rowNumber, 10);
+		ex.writeData(Long.toString(totalTime), rowNumber, 11);
+
 		// ex.writeData(cpqModel.getBuilding_Type(), rowNumber, 8);
 
 		rowNumber++;
-		
+
 		try {
 			ExcelDataBaseConnector.CloseTheConnection(listPriceConnection);
 		} catch (FilloException e) {
@@ -208,6 +218,348 @@ public class SampleTest extends DriverTestCase {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/*
+	@Test(dataProviderClass = DataProviderRepository.class, dataProvider = "BulkHubPrices", priority = 2)
+	public void testHubPrices(Object obj) throws InterruptedException, Exception {
+
+		DataModelCPQ cpqModel = (DataModelCPQ) obj;
+
+		listPriceConnection = ExcelDataBaseConnector.createConnection("SheetPriceHub");
+
+		boolean onNetConnectivity = false;
+		String currencyType = "EUR";
+		String expectedMrcPrice = ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel, "Zone 1 MRC")
+				.replaceAll(",", "");
+		// String _mrc_Net_Price =
+		// Utilities.mrcPriceAsPerContractTerm(cpqModel.getContract_Term(),
+		// mrc_Net_Price);
+		System.out.println(expectedMrcPrice);
+
+		String expectedNrcPrice = ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel, "Zone 1 NRC")
+				.replaceAll(",", "");
+		// String _nrc_Net_Price =
+		// Utilities.nrcPriceAsPerContractTerm(cpqModel.getContract_Term(),
+		// nrc_Net_Price);
+		System.out.println(expectedNrcPrice);
+
+		long startTime = System.currentTimeMillis();
+
+		String currency = ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel, "Currency");
+		System.out.println(currency);
+
+		String NetMRC_Price = Utilities.currencyConvertor(expectedMrcPrice, currency, currencyType).replaceAll(",", "");
+		reportLog("MRC_Net Price after conversion: " + NetMRC_Price);
+		System.out.println(NetMRC_Price);
+		String NetNRC_Price = Utilities.currencyConvertor(expectedNrcPrice, currency, currencyType).replaceAll(",", "");
+		reportLog("MRC_Net Price after conversion: " + NetNRC_Price);
+		System.out.println(NetNRC_Price);
+
+		reportLog("Expected NRC Prices is : " + NetNRC_Price + " And MRC Price is : " + NetMRC_Price);
+
+		modelConfigurationPage.enterHubAddress(cpqModel.getSite_A_Add());
+
+		modelConfigurationPage.click(modelConfigurationPage.update);
+		reportLog("Click on to Update button");
+
+		modelConfigurationPage.checkConnectivity();
+		reportLog("Click on Update button then CheckConnectivity button");
+
+		modelConfigurationPage.navigateToSiteDetailPage();
+
+		modelConfigurationPage.configureProduct(cpqModel);
+
+		// String buildingType = modelConfigurationPage.getBuildingType();
+
+		// String buildingType = modelConfigurationPage.actualBuildingType.getText();
+
+		// String coverage = modelConfigurationPage.siteCoverage.getText();
+
+		List<String> buildings = new ArrayList<>();
+		String buildingType = modelConfigurationPage.actualBuildingType.getText();
+		buildings.add(modelConfigurationPage.buildingTypes.get(0).getText());
+
+		String NrcPrice = null;
+		String MrcPrice = null;
+		try {
+			String actualNrcPrice = modelConfigurationPage.nrcPrice.getText();
+
+			NrcPrice = modelConfigurationPage.getActualPrice(actualNrcPrice);
+			String actualMrcPrice = modelConfigurationPage.mrcPrice.getText();
+
+			MrcPrice = modelConfigurationPage.getActualPrice(actualMrcPrice);
+
+			onNetConnectivity = modelConfigurationPage.checktOnNetConnectivity();
+
+		} catch (ElementNotVisibleException e) {
+			System.out.println("CheckConnectivity button not available");
+		} catch (NoSuchElementException e) {
+			System.out.println("CheckConnectivity button not available");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			// modelConfigurationPage.manuallyEnterHub.click();
+			System.out.println("CheckConnectivity button not available ");
+
+		}
+
+		modelConfigurationPage.navigateToSiteAddress();
+
+		System.out.println("Actual NRC Price is : " + NrcPrice + " And MRC Price is : " + MrcPrice);
+
+		long endTime = System.currentTimeMillis();
+		long totalTime = endTime - startTime;
+		System.out.println(totalTime);
+
+		ex.writeData(cpqModel.getSegment(), rowNumber, 0);
+		ex.writeData(cpqModel.getSite_A_Add(), rowNumber, 1);
+		ex.writeData(NetMRC_Price, rowNumber, 3);
+		ex.writeData(NetNRC_Price, rowNumber, 4);
+		ex.writeData(MrcPrice, rowNumber, 5);
+		ex.writeData(NrcPrice, rowNumber, 6);
+		ex.writeData(cpqModel.getBandWidth(), rowNumber, 7);
+		ex.writeData(cpqModel.getResiliency(), rowNumber, 8);
+		ex.writeData(buildings.get(0), rowNumber, 9);
+		ex.writeData(String.valueOf(onNetConnectivity), rowNumber, 10);
+		ex.writeData(Long.toString(totalTime), rowNumber, 11);
+
+		// ex.writeData(cpqModel.getBuilding_Type(), rowNumber, 8);
+
+		rowNumber++;
+
+		try {
+			ExcelDataBaseConnector.CloseTheConnection(listPriceConnection);
+		} catch (FilloException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+*/	
+	
+	/*
+	 * @Test(dataProviderClass = DataProviderRepository.class, dataProvider =
+	 * "javascriptInjection", priority = 2) public void testEthernetPrices(Object
+	 * obj) throws InterruptedException, Exception {
+	 * 
+	 * DataModelCPQ cpqModel = (DataModelCPQ) obj;
+	 * 
+	 * String pricingSegement = cpqModel.getSegment(); if
+	 * (pricingSegement.equals("ENTS")) { listPriceConnection =
+	 * ExcelDataBaseConnector.createConnection("SheetPriceENTS"); } else if
+	 * (pricingSegement.equals("WHSS")) { listPriceConnection =
+	 * ExcelDataBaseConnector.createConnection("SheetPriceWHSS"); }
+	 * 
+	 * String currencyType = "EUR"; String expectedMrcPrice =
+	 * ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel,
+	 * "Zone 1 MRC") .replaceAll(",", ""); // String _mrc_Net_Price = //
+	 * Utilities.mrcPriceAsPerContractTerm(cpqModel.getContract_Term(), //
+	 * mrc_Net_Price); System.out.println(expectedMrcPrice);
+	 * 
+	 * String expectedNrcPrice =
+	 * ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel,
+	 * "Zone 1 NRC") .replaceAll(",", ""); // String _nrc_Net_Price = //
+	 * Utilities.nrcPriceAsPerContractTerm(cpqModel.getContract_Term(), //
+	 * nrc_Net_Price); System.out.println(expectedNrcPrice);
+	 * 
+	 * long startTime = System.currentTimeMillis();
+	 * 
+	 * String currency = ExcelDataBaseConnector.executeSQLQuery(listPriceConnection,
+	 * cpqModel, "Currency"); System.out.println(currency);
+	 * 
+	 * String NetMRC_Price = Utilities.currencyConvertor(expectedMrcPrice, currency,
+	 * currencyType).replaceAll(",", "");
+	 * reportLog("MRC_Net Price after conversion: " + NetMRC_Price);
+	 * System.out.println(NetMRC_Price); String NetNRC_Price =
+	 * Utilities.currencyConvertor(expectedNrcPrice, currency,
+	 * currencyType).replaceAll(",", "");
+	 * reportLog("MRC_Net Price after conversion: " + NetNRC_Price);
+	 * System.out.println(NetNRC_Price);
+	 * 
+	 * reportLog("Expected NRC Prices is : " + NetNRC_Price + " And MRC Price is : "
+	 * + NetMRC_Price);
+	 * 
+	 * modelConfigurationPage.enterAddresses(cpqModel.getSite_A_Add(),
+	 * cpqModel.getSite_B_Add());
+	 * 
+	 * modelConfigurationPage.click(modelConfigurationPage.update);
+	 * reportLog("Click on to Update button");
+	 * 
+	 * modelConfigurationPage.checkConnectivity();
+	 * reportLog("Click on Update button then CheckConnectivity button");
+	 * 
+	 * modelConfigurationPage.navigateToSiteDetailPage();
+	 * 
+	 * modelConfigurationPage.configureProduct(cpqModel);
+	 * 
+	 * // String buildingType = modelConfigurationPage.getBuildingType();
+	 * 
+	 * List<String> buildings = new ArrayList<>(); String buildingType =
+	 * modelConfigurationPage.actualBuildingType.getText();
+	 * buildings.add(modelConfigurationPage.buildingTypes.get(0).getText());
+	 * buildings.add(modelConfigurationPage.buildingTypes.get(1).getText());
+	 * 
+	 * String expectedCoverage = cpqModel.getCoverage();
+	 * 
+	 * String actualCoverage = modelConfigurationPage.siteCoverage.getText();
+	 * 
+	 * String NrcPrice = null; String MrcPrice = null; try { String actualNrcPrice =
+	 * modelConfigurationPage.nrcPrice.getText();
+	 * 
+	 * NrcPrice = modelConfigurationPage.getActualPrice(actualNrcPrice); String
+	 * actualMrcPrice = modelConfigurationPage.mrcPrice.getText();
+	 * 
+	 * MrcPrice = modelConfigurationPage.getActualPrice(actualMrcPrice);
+	 * 
+	 * } catch (ElementNotVisibleException e) {
+	 * System.out.println("CheckConnectivity button not available"); } catch
+	 * (NoSuchElementException e) {
+	 * System.out.println("CheckConnectivity button not available"); } catch
+	 * (Exception e) { // TODO Auto-generated catch block //
+	 * modelConfigurationPage.manuallyEnterHub.click();
+	 * System.out.println("CheckConnectivity button not available "); }
+	 * 
+	 * modelConfigurationPage.navigateToSiteAddress();
+	 * 
+	 * System.out.println("Actual NRC Price is : " + NrcPrice +
+	 * " And MRC Price is : " + MrcPrice);
+	 * 
+	 * long endTime = System.currentTimeMillis(); long totalTime = endTime -
+	 * startTime; System.out.println(totalTime);
+	 * 
+	 * ex.writeData(cpqModel.getSegment(), rowNumber, 0);
+	 * ex.writeData(cpqModel.getSite_A_Add(), rowNumber, 1);
+	 * ex.writeData(cpqModel.getSite_B_Add(), rowNumber, 2);
+	 * ex.writeData(NetMRC_Price, rowNumber, 3); ex.writeData(NetNRC_Price,
+	 * rowNumber, 4); ex.writeData(MrcPrice, rowNumber, 5); ex.writeData(NrcPrice,
+	 * rowNumber, 6); ex.writeData(cpqModel.getBandWidth(), rowNumber, 7);
+	 * ex.writeData(cpqModel.getResiliency(), rowNumber, 8);
+	 * ex.writeData(expectedCoverage, rowNumber, 9); ex.writeData(actualCoverage,
+	 * rowNumber, 10); ex.writeData(buildings.get(0), rowNumber, 11);
+	 * ex.writeData(buildings.get(0), rowNumber, 12);
+	 * ex.writeData(Long.toString(totalTime), rowNumber, 13);
+	 * 
+	 * // ex.writeData(cpqModel.getBuilding_Type(), rowNumber, 8);
+	 * 
+	 * rowNumber++;
+	 * 
+	 * try { ExcelDataBaseConnector.CloseTheConnection(listPriceConnection); } catch
+	 * (FilloException e) { // TODO Auto-generated catch block e.printStackTrace();
+	 * } }
+	 */
+
+	/*
+	 * @Test(dataProviderClass = DataProviderRepository.class, dataProvider =
+	 * "javascriptInjection", priority = 2) public void
+	 * testEthernetWavePrices(Object obj) throws InterruptedException, Exception {
+	 * 
+	 * DataModelCPQ cpqModel = (DataModelCPQ) obj;
+	 * 
+	 * listPriceConnection =
+	 * ExcelDataBaseConnector.createConnection("SheetPriceWave");
+	 * 
+	 * String currencyType = "EUR"; String expectedMrcPrice =
+	 * ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel,
+	 * "Zone 1 MRC") .replaceAll(",", ""); // String _mrc_Net_Price = //
+	 * Utilities.mrcPriceAsPerContractTerm(cpqModel.getContract_Term(), //
+	 * mrc_Net_Price); System.out.println(expectedMrcPrice);
+	 * 
+	 * String expectedNrcPrice =
+	 * ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel,
+	 * "Zone 1 NRC") .replaceAll(",", ""); // String _nrc_Net_Price = //
+	 * Utilities.nrcPriceAsPerContractTerm(cpqModel.getContract_Term(), //
+	 * nrc_Net_Price); System.out.println(expectedNrcPrice);
+	 * 
+	 * long startTime = System.currentTimeMillis();
+	 * 
+	 * String currency = ExcelDataBaseConnector.executeSQLQuery(listPriceConnection,
+	 * cpqModel, "Currency"); System.out.println(currency);
+	 * 
+	 * String NetMRC_Price = Utilities.currencyConvertor(expectedMrcPrice, currency,
+	 * currencyType).replaceAll(",", "");
+	 * reportLog("MRC_Net Price after conversion: " + NetMRC_Price);
+	 * System.out.println(NetMRC_Price); String NetNRC_Price =
+	 * Utilities.currencyConvertor(expectedNrcPrice, currency,
+	 * currencyType).replaceAll(",", "");
+	 * reportLog("MRC_Net Price after conversion: " + NetNRC_Price);
+	 * System.out.println(NetNRC_Price);
+	 * 
+	 * reportLog("Expected NRC Prices is : " + NetNRC_Price + " And MRC Price is : "
+	 * + NetMRC_Price);
+	 * 
+	 * 
+	 * 
+	 * modelConfigurationPage.enterAddresses(cpqModel.getSite_A_Add(),
+	 * cpqModel.getSite_B_Add());
+	 * 
+	 * modelConfigurationPage.click(modelConfigurationPage.update);
+	 * reportLog("Click on to Update button");
+	 * 
+	 * modelConfigurationPage.checkConnectivity();
+	 * reportLog("Click on Update button then CheckConnectivity button");
+	 * 
+	 * modelConfigurationPage.navigateToSiteDetailPage();
+	 * 
+	 * modelConfigurationPage.configureWaveProduct(cpqModel);
+	 * 
+	 * // String buildingType = modelConfigurationPage.getBuildingType();
+	 * 
+	 * List<String> buildings = new ArrayList<>(); String buildingType =
+	 * modelConfigurationPage.actualBuildingType.getText();
+	 * buildings.add(modelConfigurationPage.buildingTypes.get(0).getText());
+	 * buildings.add(modelConfigurationPage.buildingTypes.get(1).getText());
+	 * 
+	 * String expectedCoverage = cpqModel.getCoverage();
+	 * 
+	 * String actualCoverage = modelConfigurationPage.siteCoverage.getText();
+	 * 
+	 * String NrcPrice = null; String MrcPrice = null; try { String actualNrcPrice =
+	 * modelConfigurationPage.nrcPrice.getText();
+	 * 
+	 * NrcPrice = modelConfigurationPage.getActualPrice(actualNrcPrice); String
+	 * actualMrcPrice = modelConfigurationPage.mrcPrice.getText();
+	 * 
+	 * MrcPrice = modelConfigurationPage.getActualPrice(actualMrcPrice);
+	 * 
+	 * } catch (ElementNotVisibleException e) {
+	 * System.out.println("CheckConnectivity button not available"); } catch
+	 * (NoSuchElementException e) {
+	 * System.out.println("CheckConnectivity button not available"); } catch
+	 * (Exception e) { // TODO Auto-generated catch block //
+	 * modelConfigurationPage.manuallyEnterHub.click();
+	 * System.out.println("CheckConnectivity button not available "); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * modelConfigurationPage.navigateToSiteAddress();
+	 * 
+	 * System.out.println("Actual NRC Price is : " + NrcPrice +
+	 * " And MRC Price is : " + MrcPrice);
+	 * 
+	 * long endTime = System.currentTimeMillis(); long totalTime = endTime -
+	 * startTime; System.out.println(totalTime);
+	 * 
+	 * ex.writeData(cpqModel.getSegment(), rowNumber, 0);
+	 * ex.writeData(cpqModel.getSite_A_Add(), rowNumber, 1);
+	 * ex.writeData(cpqModel.getSite_B_Add(), rowNumber, 2);
+	 * ex.writeData(NetMRC_Price, rowNumber, 3); ex.writeData(NetNRC_Price,
+	 * rowNumber, 4); ex.writeData(MrcPrice, rowNumber, 5); ex.writeData(NrcPrice,
+	 * rowNumber, 6); ex.writeData(cpqModel.getBandWidth(), rowNumber, 7);
+	 * ex.writeData(cpqModel.getResiliency(), rowNumber, 8);
+	 * ex.writeData(expectedCoverage, rowNumber, 9); ex.writeData(actualCoverage,
+	 * rowNumber, 10); ex.writeData(buildings.get(0), rowNumber, 11);
+	 * ex.writeData(buildings.get(1), rowNumber, 12);
+	 * ex.writeData(Long.toString(totalTime), rowNumber, 13);
+	 * 
+	 * // ex.writeData(cpqModel.getBuilding_Type(), rowNumber, 8);
+	 * 
+	 * rowNumber++;
+	 * 
+	 * try { ExcelDataBaseConnector.CloseTheConnection(listPriceConnection); } catch
+	 * (FilloException e) { // TODO Auto-generated catch block e.printStackTrace();
+	 * } }
+	 */
 
 	/*
 	 * @Test public void test_01_Navigate_From_C4C_To_CPQ() throws
@@ -271,7 +623,7 @@ public class SampleTest extends DriverTestCase {
 	 * mrc_Net_Price); System.out.println(_mrc_Net_Price);
 	 * 
 	 * String nrc_Net_Price =
-	  ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel,
+	 * ExcelDataBaseConnector.executeSQLQuery(listPriceConnection, cpqModel,
 	 * "Zone 1 NRC"); String _nrc_Net_Price =
 	 * Utilities.nrcPriceAsPerContractTerm(cpqModel.getContract_Term(),
 	 * nrc_Net_Price); System.out.println(_nrc_Net_Price);

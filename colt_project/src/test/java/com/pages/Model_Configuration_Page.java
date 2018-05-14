@@ -57,6 +57,14 @@ public class Model_Configuration_Page extends BasePage {
 
 	@FindBy(id = "bEndResiliency")
 	public WebElement bEndResiliency;
+	
+	@FindBy(id = "interfaceWavePage2")
+	public WebElement waveInterface;
+	
+	@FindBy(id = "serviceBandwidthPage2")
+	public WebElement serviceBandwidthWave;
+	
+	
 
 	@FindBy(xpath = "//select[@id='resiliencyServiceLevel']//option")
 	public List<WebElement> resiliencyOptions;
@@ -504,6 +512,17 @@ public class Model_Configuration_Page extends BasePage {
 		postCodeAEnd.sendKeys(postCode);
 	}
 	
+	public void enterHubAddress(String address) {
+
+		  sendKeys(modelConfigurationPage.siteAddressAEnd, address);
+		  _waitForJStoLoad();
+		  pressDownArrowKey();
+		  pressEnterKey();
+		  reportLog("Enter Site A address: " + address);
+		  waitForAjaxRequestsToComplete();
+		 }
+	
+	
 	public void enterHubAddress(String bandwidth, String address) throws IOException, InterruptedException {
 
 		
@@ -520,6 +539,7 @@ public class Model_Configuration_Page extends BasePage {
 
 	public void selectHub() {
 		modelConfigurationPage.selectDropDownByText(modelConfigurationPage.hubType, "Hub1");
+		waitForAjaxRequestsToComplete();
 		reportLog("Select hub type: " + "Hub1");
 	}
 
@@ -550,6 +570,17 @@ public class Model_Configuration_Page extends BasePage {
 		/*modelConfigurationPage.selectDropDownByText(modelConfigurationPage.serviceBandwidth, bandwidth);
 		reportLog("Select BandWidth: " + bandwidth);
 */
+		sendKeys(modelConfigurationPage.siteAddressAEnd, spokeAddress);
+		_waitForJStoLoad();
+		pressDownArrowKey();
+		pressEnterKey();
+		reportLog("Enter Spoke address: " + spokeAddress);
+		_waitForJStoLoad();
+
+	}
+	
+	public void enterSpokeAddress(String spokeAddress) {
+
 		sendKeys(modelConfigurationPage.siteAddressAEnd, spokeAddress);
 		_waitForJStoLoad();
 		pressDownArrowKey();
@@ -832,6 +863,33 @@ public void configureProduct(DataModelCPQ model) {
 		
 	}
 
+public void configureWaveProduct(DataModelCPQ model) {
+	
+	System.out.println(model.getInterfaceValue());
+	selectInterface(model.getInterfaceValue());
+	
+	reportLog("Select bandwidth as : "+ model.getBandWidth());
+	selectWaveBandwidth(model.getBandWidth());
+	
+	waitForAjaxRequestsToComplete();
+	selectDropDownByText(Resiliency, model.getResiliency());
+	reportLog("Select Resiliency as : " + model.getResiliency());
+	
+	waitForAjaxRequestsToComplete();
+	contractTerm.clear();
+	contractTerm.sendKeys(model.getContract_Term());
+	reportLog("Enter Contract term as :" + model.getContract_Term());
+	
+	waitForAjaxRequestsToComplete();
+	update.click();
+	reportLog("Click on update button");
+	
+	_waitForJStoLoad();
+	waitForAjaxRequestsToComplete();
+	
+	
+}
+
 	public String getBuildingType() {
 		_waitForJStoLoad();
 		javascriptButtonClick(siteDetailPage);
@@ -953,6 +1011,21 @@ public void configureProduct(DataModelCPQ model) {
 		_waitForJStoLoad();
 		selectDropDownByText(serviceBandwidth, band);
 		reportLog("Select BandWidth: " + band);
+	}
+	
+	public void selectWaveBandwidth(String bandwidth)
+	{
+		_waitForJStoLoad();
+		selectDropDownByText(serviceBandwidthWave, bandwidth);
+		reportLog("Select BandWidth: " + bandwidth);
+		
+	}
+	
+	public void selectInterface(String interfaceValue)
+	{
+		_waitForJStoLoad();
+		selectDropDownByText(waveInterface, interfaceValue);
+		reportLog("Select Interface: " + interfaceValue);
 	}
 
 	public void selectRandomBandwidth()

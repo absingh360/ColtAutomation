@@ -56,13 +56,14 @@ public class ExcelDataBaseConnector {
 
 		String data = null;
 		  System.out.println(model.getZone());
+		  System.out.println(model.getInterfaceValue());
 		  String strQuery = "SELECT  * FROM Sheet1 WHERE Country = '" + model.getCountry() + "' AND Coverage='"
 		    + model.getCoverage() + "' " + "AND Bandwidth='" + model.getBandWidth() + "' AND Resiliency ='"
 		    + model.getResiliency() + "'" + " AND Pricing_Segment ='" + model.getSegment() +"' AND Zone ='"+ model.getZone()+"'"+ " AND Building_Type='" 
 		    + model.getBuilding_Type() + "'";
 		
 		
-		System.out.println(strQuery);
+		System.out.println(strQuery);	
 
 		try {
 			rs = excelDb.executeQuery(strQuery);

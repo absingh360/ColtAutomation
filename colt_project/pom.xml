@@ -177,8 +177,8 @@
 					</executions>
 					<testFailureIgnore>true</testFailureIgnore>
 					<suiteXmlFiles>
-						<!-- <file>src/test/resources/suites/RegressionSuite.xml</file> -->
-						<!-- <file>${test}</file> -->
+						<file>src/test/resources/suites/SanitySuite.xml</file>
+						<file>${test}</file>
 						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
 					</suiteXmlFiles>
 					<properties>
