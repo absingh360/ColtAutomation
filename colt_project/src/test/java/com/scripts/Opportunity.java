@@ -146,7 +146,7 @@ public class Opportunity extends DriverTestCase {
 		commerceManagementPage.openQuoteForReview(quoteName);
 		reportLog("Open Quote For Deal Pricing Review");
 
-		transactionPage.uploadMarginAndSubmit("Namita Singh");
+		transactionPage.uploadMarginAndSubmit("Namita Singh","27");
 		List<String> names = transactionPage.getPendingApproverNames();
 		reportLog("Approvers Name: " + names);
 

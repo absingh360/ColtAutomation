@@ -31,20 +31,20 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">185.0 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">62.8 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <table cellspacing="0" cellpadding="0" class="passed" id="summary">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Start</th><th>Time<br/>(ms)</th></tr>
 <tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr>
-<tr class="failedodd"><td rowspan="1">com.scripts.FetchBuildingType</td><td><a href="#m1"><b>tearDownSuite</b>  </a></td><td class="numi">1</td><td>1526298099776</td><td class="numi">0</td></tr>
+<tr class="failedodd"><td rowspan="1">com.scripts.RegressionTest</td><td><a href="#m1"><b>tearDownSuite</b>  </a></td><td class="numi">1</td><td>1527233700821</td><td class="numi">0</td></tr>
 <tr><th colspan="4">Default test &#8212; failed</th></tr>
-<tr class="failedodd"><td rowspan="1">com.scripts.FetchBuildingType</td><td><a href="#m2"><b>testEthernetHubResiliencyManually</b>  </a></td><td class="numi">1</td><td>1526297914684</td><td class="numi">180662</td></tr>
+<tr class="failedodd"><td rowspan="1">com.scripts.RegressionTest</td><td><a href="#m2"><b>regressionFlow_4</b>  </a></td><td class="numi">1</td><td>1527233638019</td><td class="numi">53591</td></tr>
 </table>
 <h1>Default test</h1>
-<h2 id="m1">com.scripts.FetchBuildingType:tearDownSuite</h2>
+<h2 id="m1">com.scripts.RegressionTest:tearDownSuite</h2>
 <div style="padding-left:3em">
 <h3>Test Messages</h3>
-Before excel report-14_05_2018_17_11_40<br/>
+Before excel report-25_05_2018_13_05_01<br/>
 <h3>Failure</h3>
 <p>org/jfree/util/PublicCloneable</p>
 java.lang.ClassLoader.defineClass1(Native Method)
@@ -60,7 +60,7 @@ java.lang.ClassLoader.defineClass1(Native Method)
 <br/>at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
 <br/>at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 <br/>at org.automationtesting.excelreport.Xl.generateReport(Xl.java:308)
-<br/>at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:258)
+<br/>at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:257)
 <br/>at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 <br/>at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 <br/>at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -98,7 +98,7 @@ java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 <br/>at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
 <br/>at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 <br/>at org.automationtesting.excelreport.Xl.generateReport(Xl.java:308)
-<br/>at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:258)
+<br/>at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:257)
 <br/>at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 <br/>at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 <br/>at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -120,26 +120,42 @@ java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 <br/>1 lines not shown
 </div>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m2">com.scripts.FetchBuildingType:testEthernetHubResiliencyManually</h2>
+<h2 id="m2">com.scripts.RegressionTest:regressionFlow_4</h2>
 <div style="padding-left:3em">
 <h3>Test Messages</h3>
 Login to C4C Application<br/>
 Enter Username: Abhishek.Bahadur@colt.net<br/>
 Enter Password: Colt1234<br/>
 Click on Login Button<br/>
-Add new Quote from created opportunity<br/>
-Switching on CQP tab<br/>
-Enter description: Quote_Desc_6472<br/>
-Click on to AddProduct button<br/>
-Mouse move to EtherNet link<br/>
-Click on to Enternet Hub Product<br/>
-Verifying the title 'Model Configuration'<br/>
-Adding Ethernet Hub Product<br/>
-Verifying the title 'Model Configuration'<br/>
 <h3>Failure</h3>
-<p>null</p>
-com.util.ExcelReader.getRows(ExcelReader.java:109)
-<br/>at com.scripts.FetchBuildingType.testEthernetHubResiliencyManually(FetchBuildingType.java:290)
+<p>unknown error: Element &lt;h1 class=&quot;sapMPanelHdr&quot; id=&quot;__panel4-header&quot;&gt;...&lt;/h1&gt; is not clickable at point (146, 250). Other element would receive the click: &lt;div id=&quot;sap-ui-blocklayer-popup&quot; tabindex=&quot;0&quot; class=&quot;sapUiBLy sapMDialogBlockLayerInit&quot; style=&quot;z-index: 18; visibility: visible; display: block;&quot;&gt;&lt;/div&gt;
+  (Session info: chrome=66.0.3359.181)
+  (Driver info: chromedriver=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 36 milliseconds
+Build info: version: &apos;3.4.0&apos;, revision: &apos;unknown&apos;, time: &apos;unknown&apos;
+System info: host: &apos;360NDCPC058&apos;, ip: &apos;192.168.9.13&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_144&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91), userDataDir=C:\Users\ABHISH~1\AppData\Local\Temp\scoped_dir16080_15001}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=66.0.3359.181, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=false, acceptInsecureCerts=false, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
+Session ID: b97d840094a6cfda5d0121ca9553d97e</p>
+sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+<br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+<br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+<br/>at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+<br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+<br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:671)
+<br/>at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:272)
+<br/>at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:82)
+<br/>at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+<br/>at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+<br/>at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+<br/>at java.lang.reflect.Method.invoke(Method.java:498)
+<br/>at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+<br/>at com.sun.proxy.$Proxy9.click(Unknown Source)
+<br/>at com.util.BasePage.waitAndClick(BasePage.java:120)
+<br/>at com.pages.C4CAppPage.goToOpportunityPage(C4CAppPage.java:200)
+<br/>at com.scripts.RegressionTest.test_01_Navigate_From_C4C_To_CPQ(RegressionTest.java:25)
+<br/>at com.scripts.RegressionTest.regressionFlow_4(RegressionTest.java:323)
 <br/>25 lines not shown
 </div>
 <p class="totop"><a href="#summary">back to summary</a></p>

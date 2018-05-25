@@ -29,19 +29,33 @@ public class Commerce_Management_Page extends BasePage {
 
 	@FindBy(id = "search")
 	public WebElement searchButton;
+	
+	@FindBy(xpath = "//td[@title='[Default]']/preceding-sibling::td/a")
+	public WebElement defaultView;
+	
 
 	@FindBy(xpath = "//div[@class='tabular-data-container']//table//tr")
 	public List<WebElement> quoteRows;
+	
+	
 
 	@FindBy(xpath = "//div[@class='tabular-data-container']//table//tr//td[3]//div//span")
 	public List<WebElement> columnValue;
 
 	public static By getQuoteNameFromQuoteTable(int i) {
-		return By.xpath("//div[@class='tabular-data-container']//table//tr[" + i + "]//td[4]");
+		return By.xpath("//div[@class='tabular-data-container']//table//tr[" + i + "]//td[3]");
 	}
 
+	public static By getQuoteNameFromQuoteTableApproverView(int i) {
+		return By.xpath("//div[@class='tabular-data-container']//table//tr[" + i + "]//td[4]");
+	}
+	
 	public static By getQuoteStatusFromQuoteTable(int i) {
-		return By.xpath("//div[@class='tabular-data-container']//table//tr[" + i + "]//td[8]//span");
+		return By.xpath("//div[@class='tabular-data-container']//table//tr[" + i + "]//td[4]/div/span");
+	}
+	
+	public static By getQuoteStatusFromQuoteTableApproverView(int i) {
+		return By.xpath("//div[@class='tabular-data-container']//table//tr[" + i + "]//td[8]/div/span");
 	}
 
 	@FindBy(xpath = "(//*[text()='Select'])[2]")
@@ -59,6 +73,23 @@ public class Commerce_Management_Page extends BasePage {
 		for (int i = 2; i < rowCount; i++) {
 			String value = driver.findElement(getQuoteNameFromQuoteTable(i)).getText();
 			if (value.equals(quoteName)) {
+				driver.findElement(By.xpath("//div[@class='tabular-data-container']//table//tr["+i+"]//td[2]"))
+						.click();
+				break;
+			}
+		}
+		_waitForJStoLoad();
+		waitForAjaxRequestsToComplete();
+
+	}
+	
+public void openQuoteForReviewApproverView(String quoteName) {
+		
+		int rowCount = quoteRows.size();
+
+		for (int i = 2; i < rowCount; i++) {
+			String value = driver.findElement(getQuoteNameFromQuoteTableApproverView(i)).getText();
+			if (value.equals(quoteName)) {
 				driver.findElement(By.xpath("//div[@class='tabular-data-container']//table//tr["+i+"]//td[3]"))
 						.click();
 				break;
@@ -69,6 +100,33 @@ public class Commerce_Management_Page extends BasePage {
 
 	}
 
+	public void clickOnDefaultView()
+	{
+		javascriptButtonClick(defaultView);
+		_waitForJStoLoad();
+		waitForAjaxRequestsToComplete();
+		
+	}
+	
+	public void verifyQuoteStatusInApproverView(String quoteName, String status)
+	{
+		int rowCount = quoteRows.size();
+		String text;
+		String value;
+		for (int i = 2; i < rowCount; i++) {
+			reportLog("test");
+			value = driver.findElement(getQuoteNameFromQuoteTableApproverView(i)).getText();			
+			if (value.equals(quoteName)) {
+				text = driver.findElement(getQuoteStatusFromQuoteTableApproverView(i)).getText();
+				Assert.assertTrue(text.equals(status),
+						"Quote named [" + quoteName + "] status is Not as Expected " + text + "");
+				reportLog("Quote named [" + quoteName + "] status is " + status + "");
+				break;
+			}
+		}
+
+	}
+	
 	public void verifyQuoteStatus(String quoteName, String status) {
 		int rowCount = quoteRows.size();
 		String text;

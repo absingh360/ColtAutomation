@@ -150,6 +150,13 @@ public abstract class BasePage extends DriverTestCase {
 		Assert.assertTrue(isElementPresent(locator), "Element Locator :" + locator + " Not found");
 		locator.click();
 	}
+	
+	
+	public void waitAndClickOn(WebElement locator) {
+		 this.waitForElementPresent(locator, DEFAULT_WAIT_4_ELEMENT);
+		Assert.assertTrue(isElementPresent(locator), "Element Locator :" + locator + " Not found");
+		locator.click();
+	}
 
 	// Click on button
 	public void click(WebElement locator) {
@@ -300,6 +307,11 @@ public abstract class BasePage extends DriverTestCase {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", locator);
 		_waitForJStoLoad();
+	}
+	
+	public void javascriptClick(WebElement locator) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", locator);
 	}
 
 	public void javascriptSendKeys(String locator, String data) {
@@ -558,7 +570,7 @@ public abstract class BasePage extends DriverTestCase {
 	}
 
 	public void switchWindow(String title) {
-		waitForAjaxRequestsToComplete();
+		//waitForAjaxRequestsToComplete();
 		for (String windowhandle : getWebDriver().getWindowHandles()) {
 			getWebDriver().switchTo().window(windowhandle);
 			if (getWebDriver().getTitle().contains(title)) {

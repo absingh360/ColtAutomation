@@ -14,65 +14,74 @@
       <![CDATA[Click on Login Button]]>
     </line>
     <line>
-      <![CDATA[Add new Quote from created opportunity]]>
+      <![CDATA[<a href= 'D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'target='_blank' ><img src='D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'>regressionFlow_42018-05-25-01-04-51</a>]]>
     </line>
     <line>
-      <![CDATA[Switching on CQP tab]]>
-    </line>
-    <line>
-      <![CDATA[Enter description: Quote_Desc_6472]]>
-    </line>
-    <line>
-      <![CDATA[Click on to AddProduct button]]>
-    </line>
-    <line>
-      <![CDATA[Mouse move to EtherNet link]]>
-    </line>
-    <line>
-      <![CDATA[Click on to Enternet Hub Product]]>
-    </line>
-    <line>
-      <![CDATA[Verifying the title 'Model Configuration']]>
-    </line>
-    <line>
-      <![CDATA[Adding Ethernet Hub Product]]>
-    </line>
-    <line>
-      <![CDATA[Verifying the title 'Model Configuration']]>
-    </line>
-    <line>
-      <![CDATA[<a href= 'D:/ColtRepo/ColtAutomation/colt_project/screenshots/testEthernetHubResiliencyManually2018-05-14-05-11-35.png'target='_blank' ><img src='D:/ColtRepo/ColtAutomation/colt_project/screenshots/testEthernetHubResiliencyManually2018-05-14-05-11-35.png'>testEthernetHubResiliencyManually2018-05-14-05-11-35</a>]]>
-    </line>
-    <line>
-      <![CDATA[Before excel report-14_05_2018_17_11_40]]>
+      <![CDATA[Before excel report-25_05_2018_13_05_01]]>
     </line>
   </reporter-output>
-  <suite name="Default suite" duration-ms="185048" started-at="2018-05-14T11:38:34Z" finished-at="2018-05-14T11:41:39Z">
+  <suite name="Default suite" duration-ms="62797" started-at="2018-05-25T07:33:58Z" finished-at="2018-05-25T07:35:00Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="185048" started-at="2018-05-14T11:38:34Z" finished-at="2018-05-14T11:41:39Z">
-      <class name="com.scripts.FetchBuildingType">
-        <test-method status="PASS" signature="before()[pri:0, instance:com.scripts.FetchBuildingType@15d0c81b]" name="before" is-config="true" duration-ms="153" started-at="2018-05-14T17:08:34Z" finished-at="2018-05-14T17:08:34Z">
+    <test name="Default test" duration-ms="62797" started-at="2018-05-25T07:33:58Z" finished-at="2018-05-25T07:35:00Z">
+      <class name="com.scripts.RegressionTest">
+        <test-method status="PASS" signature="before()[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="before" is-config="true" duration-ms="250" started-at="2018-05-25T13:03:57Z" finished-at="2018-05-25T13:03:58Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- before -->
-        <test-method status="PASS" signature="startTest(java.lang.reflect.Method)[pri:0, instance:com.scripts.FetchBuildingType@15d0c81b]" name="startTest" is-config="true" duration-ms="2" started-at="2018-05-14T17:08:34Z" finished-at="2018-05-14T17:08:34Z">
+        <test-method status="PASS" signature="startTest(java.lang.reflect.Method)[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="startTest" is-config="true" duration-ms="3" started-at="2018-05-25T13:03:58Z" finished-at="2018-05-25T13:03:58Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.scripts.FetchBuildingType.testEthernetHubResiliencyManually() throws java.lang.Exception]]>
+                <![CDATA[public void com.scripts.RegressionTest.regressionFlow_4() throws java.lang.Exception]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startTest -->
-        <test-method status="FAIL" signature="testEthernetHubResiliencyManually()[pri:0, instance:com.scripts.FetchBuildingType@15d0c81b]" name="testEthernetHubResiliencyManually" duration-ms="180662" started-at="2018-05-14T17:08:34Z" finished-at="2018-05-14T17:11:35Z">
-          <exception class="java.lang.NullPointerException">
+        <test-method status="FAIL" signature="regressionFlow_4()[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="regressionFlow_4" duration-ms="53591" started-at="2018-05-25T13:03:58Z" finished-at="2018-05-25T13:04:51Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[unknown error: Element <h1 class="sapMPanelHdr" id="__panel4-header">...</h1> is not clickable at point (146, 250). Other element would receive the click: <div id="sap-ui-blocklayer-popup" tabindex="0" class="sapUiBLy sapMDialogBlockLayerInit" style="z-index: 18; visibility: visible; display: block;"></div>
+  (Session info: chrome=66.0.3359.181)
+  (Driver info: chromedriver=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 36 milliseconds
+Build info: version: '3.4.0', revision: 'unknown', time: 'unknown'
+System info: host: '360NDCPC058', ip: '192.168.9.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_144'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91), userDataDir=C:\Users\ABHISH~1\AppData\Local\Temp\scoped_dir16080_15001}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=66.0.3359.181, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=false, acceptInsecureCerts=false, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
+Session ID: b97d840094a6cfda5d0121ca9553d97e]]>
+            </message>
             <full-stacktrace>
-              <![CDATA[java.lang.NullPointerException
-	at com.util.ExcelReader.getRows(ExcelReader.java:109)
-	at com.scripts.FetchBuildingType.testEthernetHubResiliencyManually(FetchBuildingType.java:290)
+              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element <h1 class="sapMPanelHdr" id="__panel4-header">...</h1> is not clickable at point (146, 250). Other element would receive the click: <div id="sap-ui-blocklayer-popup" tabindex="0" class="sapUiBLy sapMDialogBlockLayerInit" style="z-index: 18; visibility: visible; display: block;"></div>
+  (Session info: chrome=66.0.3359.181)
+  (Driver info: chromedriver=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 36 milliseconds
+Build info: version: '3.4.0', revision: 'unknown', time: 'unknown'
+System info: host: '360NDCPC058', ip: '192.168.9.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_144'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91), userDataDir=C:\Users\ABHISH~1\AppData\Local\Temp\scoped_dir16080_15001}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=66.0.3359.181, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=false, acceptInsecureCerts=false, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
+Session ID: b97d840094a6cfda5d0121ca9553d97e
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:671)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:272)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:82)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at com.sun.proxy.$Proxy9.click(Unknown Source)
+	at com.util.BasePage.waitAndClick(BasePage.java:120)
+	at com.pages.C4CAppPage.goToOpportunityPage(C4CAppPage.java:200)
+	at com.scripts.RegressionTest.test_01_Navigate_From_C4C_To_CPQ(RegressionTest.java:25)
+	at com.scripts.RegressionTest.regressionFlow_4(RegressionTest.java:323)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -99,7 +108,7 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.NullPointerException -->
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
           <reporter-output>
             <line>
               <![CDATA[Login to C4C Application]]>
@@ -113,50 +122,23 @@
             <line>
               <![CDATA[Click on Login Button]]>
             </line>
-            <line>
-              <![CDATA[Add new Quote from created opportunity]]>
-            </line>
-            <line>
-              <![CDATA[Switching on CQP tab]]>
-            </line>
-            <line>
-              <![CDATA[Enter description: Quote_Desc_6472]]>
-            </line>
-            <line>
-              <![CDATA[Click on to AddProduct button]]>
-            </line>
-            <line>
-              <![CDATA[Mouse move to EtherNet link]]>
-            </line>
-            <line>
-              <![CDATA[Click on to Enternet Hub Product]]>
-            </line>
-            <line>
-              <![CDATA[Verifying the title 'Model Configuration']]>
-            </line>
-            <line>
-              <![CDATA[Adding Ethernet Hub Product]]>
-            </line>
-            <line>
-              <![CDATA[Verifying the title 'Model Configuration']]>
-            </line>
           </reporter-output>
-        </test-method> <!-- testEthernetHubResiliencyManually -->
-        <test-method status="PASS" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.scripts.FetchBuildingType@15d0c81b]" name="afterMethod" is-config="true" duration-ms="4355" started-at="2018-05-14T17:11:35Z" finished-at="2018-05-14T17:11:39Z">
+        </test-method> <!-- regressionFlow_4 -->
+        <test-method status="PASS" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="afterMethod" is-config="true" duration-ms="9192" started-at="2018-05-25T13:04:51Z" finished-at="2018-05-25T13:05:00Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testEthernetHubResiliencyManually status=FAILURE method=FetchBuildingType.testEthernetHubResiliencyManually()[pri:0, instance:com.scripts.FetchBuildingType@15d0c81b] output=Login to C4C Application]]]>
+                <![CDATA[[TestResult name=regressionFlow_4 status=FAILURE method=RegressionTest.regressionFlow_4()[pri:0, instance:com.scripts.RegressionTest@2aceadd4] output=Login to C4C Application]]]>
               </value>
             </param>
           </params>
           <reporter-output>
             <line>
-              <![CDATA[<a href= 'D:/ColtRepo/ColtAutomation/colt_project/screenshots/testEthernetHubResiliencyManually2018-05-14-05-11-35.png'target='_blank' ><img src='D:/ColtRepo/ColtAutomation/colt_project/screenshots/testEthernetHubResiliencyManually2018-05-14-05-11-35.png'>testEthernetHubResiliencyManually2018-05-14-05-11-35</a>]]>
+              <![CDATA[<a href= 'D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'target='_blank' ><img src='D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'>regressionFlow_42018-05-25-01-04-51</a>]]>
             </line>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="FAIL" signature="tearDownSuite()[pri:0, instance:com.scripts.FetchBuildingType@15d0c81b]" name="tearDownSuite" is-config="true" duration-ms="0" started-at="2018-05-14T17:11:39Z" finished-at="2018-05-14T17:11:39Z">
+        <test-method status="FAIL" signature="tearDownSuite()[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="tearDownSuite" is-config="true" duration-ms="0" started-at="2018-05-25T13:05:00Z" finished-at="2018-05-25T13:05:00Z">
           <exception class="java.lang.NoClassDefFoundError">
             <message>
               <![CDATA[org/jfree/util/PublicCloneable]]>
@@ -176,7 +158,7 @@
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	at org.automationtesting.excelreport.Xl.generateReport(Xl.java:308)
-	at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:258)
+	at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:257)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -206,11 +188,11 @@ Caused by: java.lang.ClassNotFoundException: org.jfree.util.PublicCloneable
           </exception> <!-- java.lang.NoClassDefFoundError -->
           <reporter-output>
             <line>
-              <![CDATA[Before excel report-14_05_2018_17_11_40]]>
+              <![CDATA[Before excel report-25_05_2018_13_05_01]]>
             </line>
           </reporter-output>
         </test-method> <!-- tearDownSuite -->
-      </class> <!-- com.scripts.FetchBuildingType -->
+      </class> <!-- com.scripts.RegressionTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

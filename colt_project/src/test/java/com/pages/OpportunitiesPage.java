@@ -94,7 +94,7 @@ public class OpportunitiesPage extends BasePage {
 		waitAndClick(quotesTab);
 		// reportLog("Click on Quote tab");
 		_waitForJStoLoad();
-
+		waitForAjaxRequestsToComplete();
 		waitAndClick(add);
 		// reportLog("Click on Add button");
 		_waitForJStoLoad();

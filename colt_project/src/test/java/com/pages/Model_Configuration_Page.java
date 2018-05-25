@@ -101,6 +101,20 @@ public class Model_Configuration_Page extends BasePage {
 
 	@FindBy(id = "update")
 	public WebElement update;
+	
+	@FindBy(xpath = "//label[text()='OFF-NET CHECK']/..")
+	public List<WebElement> connectivity;
+	
+	@FindBy(xpath = "//div[text()='Off-Net']")
+	public List<WebElement> offNetConnectivityTabs;
+	
+	@FindBy(xpath = "//input[@name='connRadioVarNameBEnd']")
+	public List<WebElement> offNetConnectivityValue;
+	
+	
+	@FindBy(xpath = "//div[text()='Near-Net']")
+	public List<WebElement> nearNetTab;
+	
 
 	@FindBy(xpath = "//div[text()='On-Net']")
 	public WebElement onNetTab;
@@ -827,6 +841,7 @@ public String getActualPrice(String str) {
 	public void checkConnectivity() {
 		update.click();
 		_waitForJStoLoad();
+		waitForAjaxRequestsToComplete();
 		javascriptButtonClick(checkConnectivityButton);
 		_waitForJStoLoad();
 
@@ -988,11 +1003,76 @@ public void configureWaveProduct(DataModelCPQ model) {
 		 * driver.switchTo().defaultContent();
 		 */
 	}
+	
+	public void selectConnectivity()
+	{
+		connectivity.get(1).click();
+		waitForAjaxRequestsToComplete();
+		offNetConnectivityTabs.get(1).click(); 
+		waitForAjaxRequestsToComplete();
+		offNetConnectivityValue.get(1).click();
+		waitForAjaxRequestsToComplete();
+		
+	}
 
 	public void saveQuoteButton() {
 		_waitForJStoLoad();
 		addToTransaction.click();
 		waitForAjaxRequestsToComplete();
+
+	}
+	
+	
+	public void providePoAPrice(String quoteName) {
+		
+		try {
+			if (modelConfigurationPage.requestPOAPricesButton.isDisplayed()) {
+
+				modelConfigurationPage.requestPoaPrices();
+
+				transactionPage.logOutFromCPQ();
+				reportLog("Logout From CPQ");
+
+				getWebDriver().navigate().to(application_url);
+
+				c4cappPage.loginInToCPQApplication(deal_user, deal_user_password);
+				reportLog("Login to CPQ using deal pricing user credentials.");
+
+				productListPage.clickOnOrderManagerLink();
+
+				c4cappPage.verifyTitle("Commerce Management");
+				reportLog("Verifying the title Commerce Management");
+
+				
+				commerceManagementPage.clickOnDefaultView();
+				commerceManagementPage.verifyQuoteStatusInApproverView(quoteName, "Waiting for POA");
+				commerceManagementPage.openQuoteForReviewApproverView(quoteName);
+				reportLog("Open Quote For Deal Pricing Review");
+
+				transactionPage.assignQuoteAndProvidePricess("Namita Singh");
+
+				transactionPage.logOutFromCPQ();
+				reportLog("Logout From CPQ");
+
+				getWebDriver().navigate().to(application_url);
+
+				c4cappPage.loginInToCPQApplication(sales_user, salesuser_pass);
+				reportLog("Login to CPQ using deal pricing user credentials.");
+
+				productListPage.clickOnOrderManagerLink();
+
+				c4cappPage.verifyTitle("Commerce Management");
+				reportLog("Verifying the title Commerce Management");
+
+				commerceManagementPage.verifyQuoteStatus(quoteName, "Priced");
+				commerceManagementPage.openQuoteForReview(quoteName);
+				reportLog("Open Quote by Sales User");
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 	}
 

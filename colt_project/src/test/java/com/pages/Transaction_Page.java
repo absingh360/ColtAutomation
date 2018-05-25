@@ -1,14 +1,28 @@
 package com.pages;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
@@ -18,7 +32,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.constants.GlobalConstant;
+import com.constants.GlobalConstant.FileNames;
 import com.util.BasePage;
+import com.util.ExcelReader;
 import com.util.DriverTestCase.BuildingType;
 import com.util.Utilities;
 
@@ -151,6 +167,60 @@ public class Transaction_Page extends BasePage {
 
 	@FindBy(name = "contactTitleAEnd_l")
 	public WebElement contactTitle;
+
+	@FindBy(xpath = "//select[@name='contactTitleAEnd_l']")
+	public WebElement contactTitleA;
+
+	@FindBy(id = "aEndContactFirstName")
+	public WebElement firstContact;
+
+	@FindBy(id = "aEndContactLastName")
+	public WebElement lastNameContact;
+
+	@FindBy(xpath = "//select[@name='contactTitleBEnd_l']")
+	public WebElement contactTitleB;
+
+	@FindBy(id = "bEndContactFirstName")
+	public WebElement b_firstContact;
+
+	@FindBy(id = "bEndContactLastName")
+	public WebElement b_lastNameContact;
+
+	@FindBy(id = "aEndContactEmail")
+	public WebElement a_firstEmail;
+
+	@FindBy(id = "aEndContactMobileNumber")
+	public WebElement a_lastMobileNumber;
+
+	@FindBy(id = "aEndContactTelephone")
+	public WebElement a_firstTelephone;
+
+	@FindBy(id = "bEndContactEmail")
+	public WebElement b_lastEmail;
+
+	@FindBy(id = "bEndContactMobileNumber")
+	public WebElement b_EndMobileNumber;
+
+	@FindBy(id = "bEndContactTelephone")
+	public WebElement b_EndTelephone;
+
+	@FindBy(id = "aEndContactFaxNumber")
+	public WebElement a_faxNumber;
+
+	@FindBy(xpath = "//select[@name='contactCorrespondenceLanguageAEnd_l']")
+	public WebElement a_contactCorrespondence;
+
+	@FindBy(xpath = "//select[@name='contactPreferredContactMethodAEnd_l']")
+	public WebElement a_contactPrefferedContact;
+
+	@FindBy(id = "bEndContactFaxNumber")
+	public WebElement b_faxNumber;
+
+	@FindBy(xpath = "//select[@name='contactCorrespondenceLanguageBEnd_l']")
+	public WebElement b_contactCorrespondence;
+
+	@FindBy(xpath = "//select[@name='contactPreferredContactMethodBEnd_l']")
+	public WebElement b_contactPrefferedContact;
 
 	@FindBy(id = "aEndContactFirstName")
 	public WebElement firstContactName;
@@ -292,14 +362,12 @@ public class Transaction_Page extends BasePage {
 
 	@FindBy(id = "assign_quote")
 	public WebElement assignQuoteButton;
-	
+
 	@FindBy(id = "submit_poa_prices")
 	public WebElement submitPOAPricess;
-	
-	
+
 	@FindBy(xpath = "//table[@id='line-item-grid']/tbody//tr[2]//input[@class=' form-input-number ']")
 	public List<WebElement> poaField;
-	
 
 	@FindBy(id = "_file_uploadFile_t")
 	public WebElement browseFileButton;
@@ -325,7 +393,7 @@ public class Transaction_Page extends BasePage {
 	@FindBy(name = "reasonForStatusWon_t")
 	public WebElement acceptReason;
 
-	@FindBy(id = "upload_margin")
+	@FindBy(id = "upload_key_financials")
 	public WebElement uploadMarginButton;
 
 	@FindBy(xpath = "//span[text()='Deal Pricing']")
@@ -410,6 +478,10 @@ public class Transaction_Page extends BasePage {
 		return By.xpath("//a[text()='" + text + "']");
 	}
 
+	public static By getCSVValues(String text) {
+		return By.xpath("//span[text()='" + text + ":']/../following-sibling::div/div/span");
+	}
+
 	public void enterDetailsWhileUploadMargin(String data) {
 		sendKeys(transactionPage.dealBackgroundInput, data);
 		sleepExecution(1);
@@ -469,11 +541,10 @@ public class Transaction_Page extends BasePage {
 
 		return PageFactory.initElements(getWebDriver(), Transaction_Page.class);
 	}
-	
-	
-	public String getQuoteID()
-	{
-		return driver.findElement(By.xpath("//span[text()='Quote ID:']/parent::label/following-sibling::div/div/span")).getText();
+
+	public String getQuoteID() {
+		return driver.findElement(By.xpath("//span[text()='Quote ID:']/parent::label/following-sibling::div/div/span"))
+				.getText();
 	}
 
 	public void navigateFromCopyLineItemsToDelete() throws InterruptedException {
@@ -598,19 +669,18 @@ public class Transaction_Page extends BasePage {
 		_waitForJStoLoad();
 	}
 
-	public void clicOnSubmitButton()
-	{
+	public void clicOnSubmitButton() {
 		javascriptButtonClick(approval);
 		reportLog("Click Approve Button");
-		
+
 		javascriptButtonClick(submitApproval);
 		reportLog("Click Submit Button");
-		
+
 		_waitForJStoLoad();
 		waitForAjaxRequestsToComplete();
-		
+
 	}
-	
+
 	public String getApprovalMsg() {
 		verifyElementPresent(afterSubmitMsg);
 		return afterSubmitMsg.getText();
@@ -626,9 +696,50 @@ public class Transaction_Page extends BasePage {
 		return approvers;
 	}
 
-	public void uploadMarginAndSubmit(String dealMemeber) {
+	public String getpriceValue(String text) {
+		StringBuilder price = new StringBuilder(text);
+		price.setCharAt(price.indexOf(","), '.');
+		price.setCharAt(price.indexOf("."), ',');
+
+		return price.toString();
+	}
+
+	public void generateDealPricingCSVFile(String igmad) throws IOException {
+		ExcelReader ex = new ExcelReader();
+		String acvValue = "";
+		String tcvValue = "";
+		String arrValue = "";
+
+		String acv = driver.findElement(getCSVValues("ACV")).getText().substring(1);
+		if (!driver.findElement(getCSVValues("ACV")).getText().startsWith("$"))
+			acvValue = getpriceValue(acv);
+		else
+			acvValue = acv;
+		String tcv = driver.findElement(getCSVValues("TCV")).getText().substring(1);
+		if (!driver.findElement(getCSVValues("TCV")).getText().startsWith("$"))
+			tcvValue = getpriceValue(tcv);
+		else
+			tcvValue = tcv;
+		String arr = driver.findElement(getCSVValues("ARR")).getText().substring(1);
+		if (!driver.findElement(getCSVValues("ARR")).getText().startsWith("$"))
+			arrValue = getpriceValue(arr);
+		else
+			arrValue = arr;
+		ex.updateDealPricingcsvValues(acvValue, 13, 1);
+		ex.updateDealPricingcsvValues(tcvValue, 14, 1);
+		ex.updateDealPricingcsvValues(arrValue, 15, 1);
+		ex.updateDealPricingcsvValues(igmad, 22, 1);
+		
+		
+
+	}
+
+	public void uploadMarginAndSubmit(String dealMemeber,String IGMADValue) throws IOException {
+
 		javascriptButtonClick(p_L_Tab);
 		reportLog("Click on P & L Tab");
+
+		generateDealPricingCSVFile(IGMADValue);
 
 		reportLog("Select Deal Pricing Team Member");
 		selectDropDownByValue(dealPricingTeamMember, dealMemeber);
@@ -636,8 +747,8 @@ public class Transaction_Page extends BasePage {
 		javascriptButtonClick(assignQuoteButton);
 		reportLog("Click on Assign Button");
 		waitForAjaxRequestsToComplete();
-		System.out.println(System.getProperty("user.dir"));
 		System.out.println(GlobalConstant.DEAL_PRICE_UPLOAD_SHEET);
+		//javascriptSendKeys(browseFileButton, GlobalConstant.DEAL_PRICE_UPLOAD_SHEET);
 		browseFileButton.sendKeys(GlobalConstant.DEAL_PRICE_UPLOAD_SHEET);
 		reportLog("Browse Margin File");
 		_waitForJStoLoad();
@@ -651,30 +762,37 @@ public class Transaction_Page extends BasePage {
 		clickApproveButton();
 
 	}
-	
-	
-	
-	public void assignQuoteAndProvidePricess(String dealMemeber) throws IOException, InterruptedException
-	{
+
+	public void assignQuoteAndProvidePricess(String dealMemeber) throws IOException, InterruptedException {
 		javascriptButtonClick(p_L_Tab);
 		reportLog("Click on P & L Tab");
 
 		reportLog("Select Deal Pricing Team Member");
 		selectDropDownByValue(dealPricingTeamMember, dealMemeber);
-
-		javascriptButtonClick(assignQuoteButton);
-		reportLog("Click on Assign Button");
 		waitForAjaxRequestsToComplete();
-		
-		poaField.get(0).sendKeys("100");
-		poaField.get(1).sendKeys("100");
-		
-		javascriptButtonClick(submitPOAPricess);
+		// dealPricingTeamMember.sendKeys(Keys.TAB);
+		// dealPricingTeamMember.sendKeys(Keys.ENTER);
+		javascriptClick(assignQuoteButton);
+		System.out.println("clicked");
+		javascriptClick(saveButton);
+		/*
+		 * Actions ob = new Actions(driver); ob.moveToElement(assignQuoteButton);
+		 * ob.click(assignQuoteButton);
+		 */
+		// javascriptClick(assignQuote);
+		// javascriptClick(assignQuoteButton);
+
+		reportLog("Click on Assign Button");
+
+		poaField.get(0).clear();
+		javascriptSendKeys(poaField.get(0), "100");
+		poaField.get(1).clear();
+		javascriptSendKeys(poaField.get(1), "100");
+		javascriptClick(submitPOAPricess);
 		alertOK();
 		_waitForJStoLoad();
 		waitForAjaxRequestsToComplete();
-		
-		
+
 	}
 
 	public void applyBcn() {
@@ -682,9 +800,12 @@ public class Transaction_Page extends BasePage {
 		waitForAjaxRequestsToComplete();
 		javascriptButtonClick(driver.findElement(getLinkElement("Billing Information")));
 		_waitForJStoLoad();
-		sleepExecution(2);
-		sendKeys(bcnName, "test");
-		sendKeys(bcnReference, "ttt");
+		waitForAjaxRequestsToComplete();
+		sleepExecution(4);
+		bcnName.sendKeys("test");
+		// sendKeys(bcnName, "test");
+		bcnReference.sendKeys("ttt");
+		// sendKeys(bcnReference, "ttt");
 		javascriptButtonClick(bcnType);
 		javascriptButtonClick(apply);
 		waitForAjaxRequestsToComplete();
@@ -705,11 +826,11 @@ public class Transaction_Page extends BasePage {
 		waitForAjaxRequestsToComplete();
 		clickButtonWithPopup("Generate Proposal");
 		acceptPopup();
+		_waitForJStoLoad();
 		waitForAjaxRequestsToComplete();
-		/*switchNewWindow();
-		driver.close();*/
-		waitForAjaxRequestsToComplete();
-		driver.switchTo().defaultContent();
+		switchNewWindow();
+		driver.close();
+		switchWindow("Transaction");
 		javascriptButtonClick(driver.findElement(getLinkElement("Save Document")));
 		selectDropDownByText(workflow, type);
 		waitForAjaxRequestsToComplete();
@@ -723,6 +844,19 @@ public class Transaction_Page extends BasePage {
 	}
 
 	public void acceptQuote() {
+
+		_waitForJStoLoad();
+		javascriptButtonClick(generalInfo);
+		waitForAjaxRequestsToComplete();
+		javascriptButtonClick(getContactDetailButton.get(1));
+		switchNewWindow();
+		sleepExecution(2);
+		clickOn(contactOptions);
+		clickOn(submitButton);
+		sleepExecution(3);
+		switchWindow("Transaction");
+		proposalTab.click();
+		waitForAjaxRequestsToComplete();
 		selectDropDownByText(accept, "Accept");
 		waitForAjaxRequestsToComplete();
 		selectDropDownByIndex(acceptReason, 2);
@@ -733,6 +867,9 @@ public class Transaction_Page extends BasePage {
 		javascriptButtonClick(signDate);
 		waitForAjaxRequestsToComplete();
 		javascriptButtonClick(todayDate);
+		enterLineItemDetails();
+		proposalTab.click();
+		waitForAjaxRequestsToComplete();
 		javascriptButtonClick(confirmAction);
 		waitForAjaxRequestsToComplete();
 
@@ -763,42 +900,387 @@ public class Transaction_Page extends BasePage {
 				selectDropDownByValue(bcabinetType, "New Colt Cabinet");
 				waitForAjaxRequestsToComplete();
 				sendKeys(bcabinetText, "444");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("TTT");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("TTTT");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleB, "Mr");
+				waitForAjaxRequestsToComplete();
+				b_firstContact.sendKeys("test");
+				waitForAjaxRequestsToComplete();
+				b_lastNameContact.sendKeys("last");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstEmail, "test@gmail.com");
+				// a_firstEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstTelephone, "+8982982");
+				// a_firstTelephone.sendKeys("+8982982");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(b_lastEmail, "test@gmail.com");
+				// b_lastEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				b_EndMobileNumber.sendKeys("+999999999");
+				waitForAjaxRequestsToComplete();
+				b_EndTelephone.sendKeys("+78898989");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("2233");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				b_faxNumber.sendKeys("8989");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactPrefferedContact, "Phone");
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
 				_waitForJStoLoad();
 				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
 				waitForAjaxRequestsToComplete();
 				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
 				waitForAjaxRequestsToComplete();
-
 			}
 			if (produtType.equals("Ethernet Hub1")) {
-				javascriptButtonClick(editLineItem.get(1));
+				javascriptButtonClick(editLineItem.get(0));
 				waitForAjaxRequestsToComplete();
 				sleepExecution(3);
 				sendKeys(asiteId, "1234");
 				sendKeys(acompanyName, "Saksoft");
 				sendKeys(branchId, "12");
 				sendKeys(asiretId, "1111");
-				_waitForJStoLoad();
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("tets");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("testt");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmai.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				sleepExecution(2);
+				javascriptSendKeys(a_firstTelephone, "+8998938");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("6766");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
+				waitForAjaxRequestsToComplete();
 				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
 				waitForAjaxRequestsToComplete();
 				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
 				waitForAjaxRequestsToComplete();
+
 			}
 
 			if (produtType.equals("Ethernet Spoke")) {
-				javascriptButtonClick(editLineItem.get(2));
+				javascriptButtonClick(editLineItem.get(0));
 				waitForAjaxRequestsToComplete();
 				sendKeys(asiteId, "1234");
 				sendKeys(acompanyName, "Saksoft");
 				sendKeys(branchId, "12");
 				sendKeys(asiretId, "1111");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("tets");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("testt");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmai.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstTelephone, "+88998938");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("6766");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
+				waitForAjaxRequestsToComplete();
+
+			}
+
+			if (produtType.equals("Optical Wave")) {
+				javascriptButtonClick(editLineItem.get(0));
+				waitForAjaxRequestsToComplete();
+				sleepExecution(3);
+				sendKeys(asiteId, "1234");
+				sendKeys(acompanyName, "Saksoft");
+				sendKeys(branchId, "12");
+				sendKeys(asiretId, "1111");
+				sendKeys(bsiteId, "1222");
+				sendKeys(bcompanyName, "Saksoft");
+				sendKeys(department, "testing");
+				sendKeys(bsiretID, "222");
+				selectDropDownByValue(acabinetType, "New Colt Cabinet");
+				waitForAjaxRequestsToComplete();
+				sendKeys(cabinetText, "1111");
+				selectDropDownByValue(bcabinetType, "New Colt Cabinet");
+				waitForAjaxRequestsToComplete();
+				sendKeys(bcabinetText, "444");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("TTT");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("TTTT");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleB, "Mr");
+				waitForAjaxRequestsToComplete();
+				b_firstContact.sendKeys("test");
+				waitForAjaxRequestsToComplete();
+				b_lastNameContact.sendKeys("last");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstTelephone, "+898982982");
+				waitForAjaxRequestsToComplete();
+				b_lastEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				b_EndMobileNumber.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				b_EndTelephone.sendKeys("+787898989");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("2233");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				b_faxNumber.sendKeys("8989");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactPrefferedContact, "Phone");
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
 				_waitForJStoLoad();
 				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
 				waitForAjaxRequestsToComplete();
 				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
 				waitForAjaxRequestsToComplete();
 			}
-			
+
+			i++;
+
+		}
+
+	}
+
+	public void enterSanityLineItemDetails() {
+
+		System.out.println(lineItemType.size());
+		for (int i = 1; i < lineItemType.size(); i++) {
+
+			String type[] = driver.findElement(getLineItemType(i)).getText().split(",");
+			String produtType = type[0];
+			if (produtType.equals("Ethernet Line")) {
+				javascriptButtonClick(editLineItem.get(0));
+				waitForAjaxRequestsToComplete();
+				sleepExecution(3);
+				sendKeys(asiteId, "1234");
+				sendKeys(acompanyName, "Saksoft");
+				sendKeys(branchId, "12");
+				sendKeys(asiretId, "1111");
+				sendKeys(bsiteId, "1222");
+				sendKeys(bcompanyName, "Saksoft");
+				sendKeys(department, "testing");
+				sendKeys(bsiretID, "222");
+				selectDropDownByValue(acabinetType, "New Colt Cabinet");
+				waitForAjaxRequestsToComplete();
+				sendKeys(cabinetText, "1111");
+				selectDropDownByValue(bcabinetType, "New Colt Cabinet");
+				waitForAjaxRequestsToComplete();
+				sendKeys(bcabinetText, "444");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("TTT");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("TTTT");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleB, "Mr");
+				waitForAjaxRequestsToComplete();
+				b_firstContact.sendKeys("test");
+				waitForAjaxRequestsToComplete();
+				b_lastNameContact.sendKeys("last");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstTelephone, "+8982982");
+				// a_firstTelephone.sendKeys("+8982982");
+				waitForAjaxRequestsToComplete();
+				b_lastEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				b_EndMobileNumber.sendKeys("+999999999");
+				waitForAjaxRequestsToComplete();
+				b_EndTelephone.sendKeys("+78898989");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("2233");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				b_faxNumber.sendKeys("8989");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactPrefferedContact, "Phone");
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
+				_waitForJStoLoad();
+				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
+				waitForAjaxRequestsToComplete();
+			}
+			if (produtType.equals("Ethernet Hub1")) {
+				javascriptButtonClick(editLineItem.get(0));
+				waitForAjaxRequestsToComplete();
+				sleepExecution(3);
+				sendKeys(asiteId, "1234");
+				sendKeys(acompanyName, "Saksoft");
+				sendKeys(branchId, "12");
+				sendKeys(asiretId, "1111");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("tets");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("testt");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmai.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				sleepExecution(2);
+				javascriptSendKeys(a_firstTelephone, "+8998938");
+				// a_firstTelephone.sendKeys("+8998938");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("6766");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
+				waitForAjaxRequestsToComplete();
+
+			}
+
+			if (produtType.equals("Ethernet Spoke")) {
+				javascriptButtonClick(editLineItem.get(0));
+				waitForAjaxRequestsToComplete();
+				sendKeys(asiteId, "1234");
+				sendKeys(acompanyName, "Saksoft");
+				sendKeys(branchId, "12");
+				sendKeys(asiretId, "1111");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("tets");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("testt");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmai.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstTelephone, "+88998938");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("6766");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
+				waitForAjaxRequestsToComplete();
+
+			}
+
+			if (produtType.equals("Optical Wave")) {
+				javascriptButtonClick(editLineItem.get(3));
+				waitForAjaxRequestsToComplete();
+				sleepExecution(3);
+				sendKeys(asiteId, "1234");
+				sendKeys(acompanyName, "Saksoft");
+				sendKeys(branchId, "12");
+				sendKeys(asiretId, "1111");
+				sendKeys(bsiteId, "1222");
+				sendKeys(bcompanyName, "Saksoft");
+				sendKeys(department, "testing");
+				sendKeys(bsiretID, "222");
+				selectDropDownByValue(acabinetType, "New Colt Cabinet");
+				waitForAjaxRequestsToComplete();
+				sendKeys(cabinetText, "1111");
+				selectDropDownByValue(bcabinetType, "New Colt Cabinet");
+				waitForAjaxRequestsToComplete();
+				sendKeys(bcabinetText, "444");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleA, "Mr");
+				waitForAjaxRequestsToComplete();
+				firstContact.sendKeys("TTT");
+				waitForAjaxRequestsToComplete();
+				lastNameContact.sendKeys("TTTT");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(contactTitleB, "Mr");
+				waitForAjaxRequestsToComplete();
+				b_firstContact.sendKeys("test");
+				waitForAjaxRequestsToComplete();
+				b_lastNameContact.sendKeys("last");
+				waitForAjaxRequestsToComplete();
+				a_firstEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(amobileNumber, "+999999999");
+				waitForAjaxRequestsToComplete();
+				javascriptSendKeys(a_firstTelephone, "+898982982");
+				waitForAjaxRequestsToComplete();
+				b_lastEmail.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				b_EndMobileNumber.sendKeys("test@gmail.com");
+				waitForAjaxRequestsToComplete();
+				b_EndTelephone.sendKeys("+787898989");
+				waitForAjaxRequestsToComplete();
+				a_faxNumber.sendKeys("2233");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(a_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				b_faxNumber.sendKeys("8989");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactCorrespondence, "Catalan");
+				waitForAjaxRequestsToComplete();
+				selectDropDownByText(b_contactPrefferedContact, "Phone");
+				selectDropDownByText(a_contactPrefferedContact, "Phone");
+				_waitForJStoLoad();
+				javascriptButtonClick(driver.findElement(getLinkElement("Save")));
+				waitForAjaxRequestsToComplete();
+				javascriptButtonClick(driver.findElement(getLinkElement("Back")));
+				_waitForJStoLoad();
+				waitForAjaxRequestsToComplete();
+			}
+
 			i++;
 
 		}
@@ -807,16 +1289,6 @@ public class Transaction_Page extends BasePage {
 
 	public void createOrder() {
 		_waitForJStoLoad();
-		javascriptButtonClick(generalInfo);
-		waitForAjaxRequestsToComplete();
-		enterLineItemDetails();
-		waitForAjaxRequestsToComplete();
-		javascriptButtonClick(getContactDetailButton.get(1));
- 		switchNewWindow();
-		clickOn(contactOptions);
-		clickOn(submitButton);
-		sleepExecution(3);
-		switchWindow("Transaction");
 		clickOn(driver.findElement(getLinkElement("Create Order")));
 		waitForAjaxRequestsToComplete();
 		reportLog("Ordered created successfully");

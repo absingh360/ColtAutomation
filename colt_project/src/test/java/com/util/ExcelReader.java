@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -19,6 +22,10 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
+
+import com.constants.GlobalConstant.FileNames;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
 public class ExcelReader {
 	File file = null;
@@ -99,7 +106,7 @@ public class ExcelReader {
 		return row1.getLastCellNum();
 	}
 
-	public int getRows(String fileName,String sheetName) throws IOException {
+	public int getRows(String fileName, String sheetName) throws IOException {
 		String excelFilePath = "D://MyWorkRepo//MyTest//MyTest//Web//colt_project_swapnil//ExcelFile//" + fileName
 				+ ".xlsx";
 		System.out.println(excelFilePath);
@@ -110,7 +117,7 @@ public class ExcelReader {
 		return totalRows;
 
 	}
-	
+
 	public static void deleteFile() {
 		try {
 
@@ -145,71 +152,97 @@ public class ExcelReader {
 	}
 
 	@SuppressWarnings("resource")
-	public void writeData(String value, int row, int col) //throws Exception 
+	public void writeData(String value, int row, int col) // throws Exception
 	{
 
-		try
-		{
-		File fileName = new File(Utilities.getPath() + "\\ExcelFile\\" + "Result.xlsx");
-		FileInputStream fsIP = new FileInputStream(fileName);
-
-		// Access the workbook
-		XSSFWorkbook wb = new XSSFWorkbook(fsIP);
-
-		// Access the worksheet, so that we can update / modify it.
-		XSSFSheet worksheet = wb.getSheet("Sheet1");
-
-		// declare a Cell object
-		XSSFCell cell = null;//row.getCell(1)
-		XSSFRow row1 = null;
-		
 		try {
-			
-			if(worksheet.getRow(row)==null){
-				row1 = worksheet.createRow(row);
-			 }
-			}
-			catch (Exception e) {
+			File fileName = new File(Utilities.getPath() + "\\ExcelFile\\" + "Result.xlsx");
+			FileInputStream fsIP = new FileInputStream(fileName);
+
+			// Access the workbook
+			XSSFWorkbook wb = new XSSFWorkbook(fsIP);
+
+			// Access the worksheet, so that we can update / modify it.
+			XSSFSheet worksheet = wb.getSheet("Sheet1");
+
+			// declare a Cell object
+			XSSFCell cell = null;// row.getCell(1)
+			XSSFRow row1 = null;
+
+			try {
+
+				if (worksheet.getRow(row) == null) {
+					row1 = worksheet.createRow(row);
+				}
+			} catch (Exception e) {
 				row1 = worksheet.createRow(row);
 			}
-		
-		
-		//Cell cell = null;
-		try {
-		if(worksheet.getRow(row).getCell(col)==null){
-			cell = worksheet.getRow(row).createCell(col);
-		 }
-		}
-		catch (Exception e) {
-			cell = worksheet.getRow(row).createCell(col);
-		}
-		
-		// Access the second cell in second row to update the value
-		cell = worksheet.getRow(row).getCell(col);
-		
 
-		// Get current cell value value and overwrite the value
-		cell.setCellValue(value);
-
-		// Close the InputStream
-		fsIP.close();
-
-		// Open FileOutputStream to write updates
-		FileOutputStream output_file = new FileOutputStream(new File(getPath() + "\\ExcelFile\\" + "Result.xlsx"));
-
-		// write changes
-		wb.write(output_file);
-
-		// close the stream
-		output_file.close();
-		}
-		 catch (Exception e) {
-
-				e.printStackTrace();
-
+			// Cell cell = null;
+			try {
+				if (worksheet.getRow(row).getCell(col) == null) {
+					cell = worksheet.getRow(row).createCell(col);
+				}
+			} catch (Exception e) {
+				cell = worksheet.getRow(row).createCell(col);
 			}
+
+			// Access the second cell in second row to update the value
+			cell = worksheet.getRow(row).getCell(col);
+
+			// Get current cell value value and overwrite the value
+			cell.setCellValue(value);
+
+			// Close the InputStream
+			fsIP.close();
+
+			// Open FileOutputStream to write updates
+			FileOutputStream output_file = new FileOutputStream(new File(getPath() + "\\ExcelFile\\" + "Result.xlsx"));
+
+			// write changes
+			wb.write(output_file);
+
+			// close the stream
+			output_file.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
 	}
 
+	@SuppressWarnings({ "resource", "deprecation" })
+	public void updateDealPricingcsvValues(String value, int row, int col) // throws Exception
+	{
+		File fileName = null;
+
+		try {
+
+			 fileName = new File(FileNames.TestDataRelativePath + "\\" + "DealPricingCSVupload.csv");
+
+			// Read existing file
+			CSVReader reader = new CSVReader(new FileReader(fileName), ',');
+			List<String[]> csvBody = reader.readAll();
+			// get CSV row column and replace with by using row and column
+			csvBody.get(row)[col] = value;
+			System.out.println(csvBody.get(row)[col]);
+			reader.close();
+
+			// Write to CSV file which is open
+			CSVWriter writer = new CSVWriter(new FileWriter(fileName), ',');
+			writer.writeAll(csvBody);
+			writer.flush();
+			writer.close();
+			
+			
+
+		} catch (Exception e) {
+			fileName.setReadable(true);
+
+			e.printStackTrace();
+
+		}
+	}
 
 	public int getNumberofRows(String sheetName) throws IOException {
 		String excelFilePath = "C://Users//abhishekbs//eclipse-workspace//colt_project_swapnil//ExcelFile//fetchBuildingType.xlsx";
@@ -245,8 +278,8 @@ public class ExcelReader {
 	public static String getColumnValueFromExcel(String filename, String sheetName, int rownum, int columnnum)
 			throws IOException {
 
-		String excelFilePath = "D://MyWorkRepo//MyTest//MyTest//Web//colt_project_swapnil//ExcelFile//"
-				+ filename + ".xlsx";
+		String excelFilePath = "D://MyWorkRepo//MyTest//MyTest//Web//colt_project_swapnil//ExcelFile//" + filename
+				+ ".xlsx";
 
 		System.out.println(excelFilePath);
 		Row row;
@@ -257,7 +290,7 @@ public class ExcelReader {
 		row = sheet.getRow(rownum);
 		System.out.println(rownum);
 		System.out.println(columnnum);
-		
+
 		if (row.getCell(columnnum).getCellType() == Cell.CELL_TYPE_NUMERIC) {
 			int i = (int) row.getCell(columnnum).getNumericCellValue();
 			value = String.valueOf(i);

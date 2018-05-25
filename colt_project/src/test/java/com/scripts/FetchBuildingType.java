@@ -259,7 +259,7 @@ public class FetchBuildingType extends DriverTestCase {
 
 	@Test
 	public void testEthernetHubResiliencyManually() throws Exception {
-
+		
 		test_01_Navigate_From_C4C_To_CPQ();
 		opportunityPage.switchWindow(oppName);
 		opportunityPage.addNewQuoteFromOpportunity();
@@ -282,13 +282,12 @@ public class FetchBuildingType extends DriverTestCase {
 		ExcelReader ex = new ExcelReader();
 		
 		String fileName = "DataCentre";
-		String sheetName = "Sheet1";
-	//	String fileName = "TestData";
-	//	String sheetName = "Sheet3";
+		String sheetName = "Sheet3";
+		//	String fileName = "TestData";
+		//	String sheetName = "Sheet3";
 		/*String fileName = "AddressesforCPQtesting";
 		String sheetName = "Sheet1";*/
 		int rows = ex.getRows(fileName, sheetName);
-		System.out.println(rows);
 		String bandwidth = "10 Gbps";
 		
 		for (int i = 0; i <= rows; i++) {

@@ -1,5 +1,6 @@
 package com.scripts;
 
+import java.io.IOException;
 import java.util.List;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -95,8 +96,8 @@ public class RegressionFlow extends DriverTestCase {
 
 	}
 
-	@Test
-	public void test_04_ApproveQuoteByDealPriceUser() {
+	/*@Test
+	public void test_04_ApproveQuoteByDealPriceUser() throws IOException {
 
 		transactionPage.logOutFromCPQ();
 		getWebDriver().navigate().to(application_url);
@@ -112,11 +113,11 @@ public class RegressionFlow extends DriverTestCase {
 		commerceManagementPage.openQuoteForReview(quoteName);
 		reportLog("Open Quote For Deal Pricing Review");
 
-		transactionPage.uploadMarginAndSubmit(deal_user);
+		transactionPage.uploadMarginAndSubmit(deal_user,"22");
 		List<String> names = transactionPage.getPendingApproverNames();
 		reportLog("Approvers Name: " + names);
 
-	}
+	}*/
 
 	@Test
 	public void test_05_ApproveQuoteBySalesApprover() {
