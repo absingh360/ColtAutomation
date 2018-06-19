@@ -7,7 +7,7 @@
 	</listeners>
 	<test name="Regression_Test">
 		<classes>
-			<class name="com.scripts.RegressionFlow" />
+			<class name="com.scripts.RegressionTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

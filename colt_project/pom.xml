@@ -185,8 +185,8 @@
 					<suiteXmlFiles>
 						<!-- <file>src/test/resources/suites/SanitySuite.xml</file>
 						<file>${test}</file> -->
-						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile> 
-						<!-- <suiteXmlFile>src/test/resources/suites/SanitySuite.xml</suiteXmlFile> -->
+						<!-- <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>  -->
+						<suiteXmlFile>src/test/resources/suites/RegressionSuite.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<properties>
 						<property>
