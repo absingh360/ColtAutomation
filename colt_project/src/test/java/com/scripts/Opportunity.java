@@ -103,7 +103,6 @@ public class Opportunity extends DriverTestCase {
 		reportLog("Select bandwidth as : "+ "10 Gbps" );
 		modelConfigurationPage.selectBandwidth("10 Gbps");
 		
-		
 		modelConfigurationPage.saveQuoteButton();
 		//reportLog("Click on save to quote button");
 

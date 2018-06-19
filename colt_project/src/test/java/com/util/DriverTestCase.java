@@ -229,6 +229,7 @@ public abstract class DriverTestCase {
 		if (result.getStatus() == ITestResult.FAILURE) {
 			captureScreenshot(result);
 		}
+		//driver.quit();
 		extent.endTest(test);
 		System.out.println("****************************************");
 	}
@@ -237,7 +238,7 @@ public abstract class DriverTestCase {
 		return this.driver;
 	}
 
-	// Get absolute path
+	// Get absolute pathfor 
 	public String getPath() {
 		String path = "";
 		File file = new File("");
@@ -249,7 +250,7 @@ public abstract class DriverTestCase {
 	@AfterSuite
 	public void tearDownSuite() {
 		// reporter.endReport();
-		// getWebDriver().quit();
+	// getWebDriver().quit();
 		extent.flush();
 		extent.close();
 		try {

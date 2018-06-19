@@ -2,7 +2,6 @@ package com.pages;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
@@ -27,14 +26,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.constants.GlobalConstant;
 import com.util.BasePage;
 import com.util.DataModelCPQ;
-import com.util.DriverTestCase.BuildingType;
 
 public class Model_Configuration_Page extends BasePage {
 
@@ -110,6 +107,11 @@ public class Model_Configuration_Page extends BasePage {
 	
 	@FindBy(xpath = "//input[@name='connRadioVarNameBEnd']")
 	public List<WebElement> offNetConnectivityValue;
+	
+	@FindBy(xpath = "//input[@name='connRadioVarNameAEnd']")
+	public WebElement offNetRadio;
+	
+	
 	
 	
 	@FindBy(xpath = "//div[text()='Near-Net']")
@@ -594,6 +596,10 @@ public class Model_Configuration_Page extends BasePage {
 	}
 	
 	public void enterSpokeAddress(String spokeAddress) {
+		
+
+		selectHub();
+		_waitForJStoLoad();
 
 		sendKeys(modelConfigurationPage.siteAddressAEnd, spokeAddress);
 		_waitForJStoLoad();
@@ -1014,10 +1020,22 @@ public void configureWaveProduct(DataModelCPQ model) {
 		waitForAjaxRequestsToComplete();
 		
 	}
+	
+	public void selectSpokeOffNetConnectivity()
+	{
+		connectivity.get(0).click();
+		waitForAjaxRequestsToComplete();
+		offNetConnectivityTabs.get(0).click(); 
+		waitForAjaxRequestsToComplete();
+		offNetRadio.click();
+		waitForAjaxRequestsToComplete();
+		
+	}
 
 	public void saveQuoteButton() {
 		_waitForJStoLoad();
 		addToTransaction.click();
+		_waitForJStoLoad();
 		waitForAjaxRequestsToComplete();
 
 	}

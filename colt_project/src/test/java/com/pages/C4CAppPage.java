@@ -163,7 +163,6 @@ public class C4CAppPage extends BasePage {
 		username.sendKeys(name);
 		reportLog("Enter Username: "+name);
 		password.sendKeys(pwd);
-		reportLog("Enter Password: "+pwd);
 		logInBtn.click();
 		reportLog("Click on Login Button");
 		_waitForJStoLoad();
@@ -204,7 +203,7 @@ public class C4CAppPage extends BasePage {
 		//reportLog("Click on Opportunity Link");
 		_waitForJStoLoad();
 		waitForAjaxRequestsToComplete();
-		sleepExecution(4);
+		sleepExecution(5);
 		waitAndClick(myAccount);
 		//reportLog("Click on downarrow button");
 		_waitForJStoLoad();

@@ -76,6 +76,7 @@ public class Product_List_Page extends BasePage {
 		// waitForElementVisible(oracleQuoteToOrderManagerLink);
 		waitAndClick(oracleQuoteToOrderManagerLink);
 		_waitForJStoLoad();
+		waitForAjaxRequestsToComplete();
 		reportLog("Click on Order Manager Link");
 	}
 }

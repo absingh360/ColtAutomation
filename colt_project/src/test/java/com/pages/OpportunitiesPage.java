@@ -28,18 +28,40 @@ public class OpportunitiesPage extends BasePage {
 	@FindBy(xpath = "//span[@title='Name']")
 	public WebElement opportunityName;
 	
+	@FindBy(xpath = "//button[@title='Edit']")
+	public WebElement editButton;
+	
+	@FindBy(xpath = "//span[text()='More']")
+	public List<WebElement> moreButton;
 
-	@FindBy(xpath = "//span[@class='sapMTabStripItemLabel' and text()='Quotes']")
+
+	@FindBy(xpath = "//span[text()='Quote']")
 	public WebElement quotesTab;
 
 	@FindBy(xpath = "//*[text()='Add']")
 	public WebElement add;
+	
+	@FindBy(xpath = "//label[text()='Sales Phase']/parent::div/div/span")
+	public WebElement salesPhaseClosed;
+	
+	
+	
 
 	@FindBys(@FindBy(xpath = "//table[contains(@id,'listdefintion')]/tbody/tr"))
 	public List<WebElement> table;
 
 	public static By getParticularOpportunity(int opportunityId) {
 		return By.xpath("//span[@title='" + opportunityId + "']/../../following-sibling::td[1]//a");
+	}
+	
+	public static By getTechincalComplexity(String text)
+	{
+		return By.xpath("//label[text()='"+text+"']/parent::div/div/div/span[1]");
+	}
+	
+	public static By getElementDropDownValue(String text)
+	{
+		return By.xpath("//li[text()='"+text+"']");
 	}
 	
 	/*public static By getParticularOpportunity(int opportunityId) {
@@ -66,6 +88,36 @@ public class OpportunitiesPage extends BasePage {
 		String name = opportunityName.getText();
 		return name;
 		
+	}
+	
+	
+	public void changeOpportunityStatus()
+	{
+		waitForAjaxRequestsToComplete();
+		if(salesPhaseClosed.getText().equals("Closed"))
+		{
+		clickOn(moreButton.get(1));
+		_waitForJStoLoad();
+		clickOn(editButton);
+		waitForAjaxRequestsToComplete();
+		driver.findElement(getTechincalComplexity("Sales Phase")).click();
+		sleepExecution(3);
+		clickOn(driver.findElement(getElementDropDownValue("Generation")));
+		_waitForJStoLoad();
+		waitForAjaxRequestsToComplete();
+		
+		driver.findElement(getTechincalComplexity("Opportunity Status")).click();
+		sleepExecution(3);
+		clickOn(driver.findElement(getElementDropDownValue("In process")));
+		_waitForJStoLoad();
+		waitForAjaxRequestsToComplete();
+		
+		List<WebElement> save = driver.findElements(By.xpath("//span[text()='Save']"));
+	 	clickOn(save.get(1));
+	 	_waitForJStoLoad();
+	 	waitForAjaxRequestsToComplete();
+		sleepExecution(5);
+	}
 	}
 
 	public void verifyDataInOpportunityTable() {

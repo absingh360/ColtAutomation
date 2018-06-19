@@ -349,6 +349,7 @@ public abstract class BasePage extends DriverTestCase {
 		} catch (NoAlertPresentException e) {
 			System.out.println("No alert is present. Please check.");
 		}
+		waitForAjaxRequestsToComplete();
 	}
 	
 	public void javascriptScrollIntoView(String locator) {

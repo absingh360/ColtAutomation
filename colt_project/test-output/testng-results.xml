@@ -1,198 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
-    <line>
-      <![CDATA[Login to C4C Application]]>
-    </line>
-    <line>
-      <![CDATA[Enter Username: Abhishek.Bahadur@colt.net]]>
-    </line>
-    <line>
-      <![CDATA[Enter Password: Colt1234]]>
-    </line>
-    <line>
-      <![CDATA[Click on Login Button]]>
-    </line>
-    <line>
-      <![CDATA[<a href= 'D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'target='_blank' ><img src='D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'>regressionFlow_42018-05-25-01-04-51</a>]]>
-    </line>
-    <line>
-      <![CDATA[Before excel report-25_05_2018_13_05_01]]>
-    </line>
   </reporter-output>
-  <suite name="Default suite" duration-ms="62797" started-at="2018-05-25T07:33:58Z" finished-at="2018-05-25T07:35:00Z">
+  <suite name="Default suite" duration-ms="15581" started-at="2018-06-18T11:52:16Z" finished-at="2018-06-18T11:52:31Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="62797" started-at="2018-05-25T07:33:58Z" finished-at="2018-05-25T07:35:00Z">
-      <class name="com.scripts.RegressionTest">
-        <test-method status="PASS" signature="before()[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="before" is-config="true" duration-ms="250" started-at="2018-05-25T13:03:57Z" finished-at="2018-05-25T13:03:58Z">
+    <test name="Default test" duration-ms="15581" started-at="2018-06-18T11:52:16Z" finished-at="2018-06-18T11:52:31Z">
+      <class name="com.scripts.gridTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.scripts.gridTest@4f7d0008]" name="setup" is-config="true" duration-ms="6751" started-at="2018-06-18T17:22:16Z" finished-at="2018-06-18T17:22:22Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- before -->
-        <test-method status="PASS" signature="startTest(java.lang.reflect.Method)[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="startTest" is-config="true" duration-ms="3" started-at="2018-05-25T13:03:58Z" finished-at="2018-05-25T13:03:58Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.scripts.RegressionTest.regressionFlow_4() throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="simpleTest()[pri:0, instance:com.scripts.gridTest@4f7d0008]" name="simpleTest" duration-ms="8819" started-at="2018-06-18T17:22:22Z" finished-at="2018-06-18T17:22:31Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- startTest -->
-        <test-method status="FAIL" signature="regressionFlow_4()[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="regressionFlow_4" duration-ms="53591" started-at="2018-05-25T13:03:58Z" finished-at="2018-05-25T13:04:51Z">
-          <exception class="org.openqa.selenium.WebDriverException">
-            <message>
-              <![CDATA[unknown error: Element <h1 class="sapMPanelHdr" id="__panel4-header">...</h1> is not clickable at point (146, 250). Other element would receive the click: <div id="sap-ui-blocklayer-popup" tabindex="0" class="sapUiBLy sapMDialogBlockLayerInit" style="z-index: 18; visibility: visible; display: block;"></div>
-  (Session info: chrome=66.0.3359.181)
-  (Driver info: chromedriver=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 36 milliseconds
-Build info: version: '3.4.0', revision: 'unknown', time: 'unknown'
-System info: host: '360NDCPC058', ip: '192.168.9.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_144'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91), userDataDir=C:\Users\ABHISH~1\AppData\Local\Temp\scoped_dir16080_15001}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=66.0.3359.181, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=false, acceptInsecureCerts=false, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
-Session ID: b97d840094a6cfda5d0121ca9553d97e]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element <h1 class="sapMPanelHdr" id="__panel4-header">...</h1> is not clickable at point (146, 250). Other element would receive the click: <div id="sap-ui-blocklayer-popup" tabindex="0" class="sapUiBLy sapMDialogBlockLayerInit" style="z-index: 18; visibility: visible; display: block;"></div>
-  (Session info: chrome=66.0.3359.181)
-  (Driver info: chromedriver=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 36 milliseconds
-Build info: version: '3.4.0', revision: 'unknown', time: 'unknown'
-System info: host: '360NDCPC058', ip: '192.168.9.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_144'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.36.540470 (e522d04694c7ebea4ba8821272dbef4f9b818c91), userDataDir=C:\Users\ABHISH~1\AppData\Local\Temp\scoped_dir16080_15001}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=66.0.3359.181, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=false, acceptInsecureCerts=false, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
-Session ID: b97d840094a6cfda5d0121ca9553d97e
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:671)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:272)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:82)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
-	at com.sun.proxy.$Proxy9.click(Unknown Source)
-	at com.util.BasePage.waitAndClick(BasePage.java:120)
-	at com.pages.C4CAppPage.goToOpportunityPage(C4CAppPage.java:200)
-	at com.scripts.RegressionTest.test_01_Navigate_From_C4C_To_CPQ(RegressionTest.java:25)
-	at com.scripts.RegressionTest.regressionFlow_4(RegressionTest.java:323)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
-	at org.testng.TestNG.run(TestNG.java:1031)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.WebDriverException -->
-          <reporter-output>
-            <line>
-              <![CDATA[Login to C4C Application]]>
-            </line>
-            <line>
-              <![CDATA[Enter Username: Abhishek.Bahadur@colt.net]]>
-            </line>
-            <line>
-              <![CDATA[Enter Password: Colt1234]]>
-            </line>
-            <line>
-              <![CDATA[Click on Login Button]]>
-            </line>
-          </reporter-output>
-        </test-method> <!-- regressionFlow_4 -->
-        <test-method status="PASS" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="afterMethod" is-config="true" duration-ms="9192" started-at="2018-05-25T13:04:51Z" finished-at="2018-05-25T13:05:00Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=regressionFlow_4 status=FAILURE method=RegressionTest.regressionFlow_4()[pri:0, instance:com.scripts.RegressionTest@2aceadd4] output=Login to C4C Application]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-            <line>
-              <![CDATA[<a href= 'D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'target='_blank' ><img src='D:/ColtRepo/ColtAutomation/colt_project/screenshots/regressionFlow_42018-05-25-01-04-51.png'>regressionFlow_42018-05-25-01-04-51</a>]]>
-            </line>
-          </reporter-output>
-        </test-method> <!-- afterMethod -->
-        <test-method status="FAIL" signature="tearDownSuite()[pri:0, instance:com.scripts.RegressionTest@2aceadd4]" name="tearDownSuite" is-config="true" duration-ms="0" started-at="2018-05-25T13:05:00Z" finished-at="2018-05-25T13:05:00Z">
-          <exception class="java.lang.NoClassDefFoundError">
-            <message>
-              <![CDATA[org/jfree/util/PublicCloneable]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.NoClassDefFoundError: org/jfree/util/PublicCloneable
-	at java.lang.ClassLoader.defineClass1(Native Method)
-	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
-	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
-	at java.net.URLClassLoader.defineClass(URLClassLoader.java:467)
-	at java.net.URLClassLoader.access$100(URLClassLoader.java:73)
-	at java.net.URLClassLoader$1.run(URLClassLoader.java:368)
-	at java.net.URLClassLoader$1.run(URLClassLoader.java:362)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:361)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
-	at org.automationtesting.excelreport.Xl.generateReport(Xl.java:308)
-	at com.util.DriverTestCase.tearDownSuite(DriverTestCase.java:257)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
-	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
-	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
-	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:308)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
-	at org.testng.TestNG.run(TestNG.java:1031)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.ClassNotFoundException: org.jfree.util.PublicCloneable
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
-	... 32 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.NoClassDefFoundError -->
-          <reporter-output>
-            <line>
-              <![CDATA[Before excel report-25_05_2018_13_05_01]]>
-            </line>
-          </reporter-output>
-        </test-method> <!-- tearDownSuite -->
-      </class> <!-- com.scripts.RegressionTest -->
+        </test-method> <!-- simpleTest -->
+      </class> <!-- com.scripts.gridTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

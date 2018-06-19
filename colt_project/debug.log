@@ -448,3 +448,11 @@
 [0501/171722.223:ERROR:prune_crash_reports.cc(34)] PruneCrashReportDatabase: Failed to get pending reports
 [0502/171723.989:ERROR:prune_crash_reports.cc(34)] PruneCrashReportDatabase: Failed to get pending reports
 [0503/171725.135:ERROR:prune_crash_reports.cc(34)] PruneCrashReportDatabase: Failed to get pending reports
+[0531/134424.765:ERROR:prune_crash_reports.cc(34)] PruneCrashReportDatabase: Failed to get pending reports
+[0613/000401.495:ERROR:process_info.cc(359)] UncheckedAllocate
+[0613/112658.097:ERROR:process_reader_win.cc(242)] ReadMemory at 0x17fc4b43f80 of 512 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0613/112658.914:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
+[0613/112658.915:ERROR:filesystem_win.cc(148)] DeleteFile C:\Users\ABHISH~1\AppData\Local\Temp\scoped_dir50892_401\Crashpad\reports\052fc73d-5c8f-4a18-acee-f4c4baaf3e6f.dmp: The process cannot access the file because it is being used by another process. (0x20)
+[0613/220637.806:ERROR:process_info.cc(359)] UncheckedAllocate
+[0613/221213.637:ERROR:process_info.cc(611)] range at 0xc3197fe000, size 0x2000 fully unreadable
+[0613/221214.231:ERROR:process_info.cc(611)] range at 0xc312ed3000, size 0x1788 fully unreadable

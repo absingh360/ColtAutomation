@@ -1,5 +1,6 @@
 package com.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,8 +8,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -212,36 +215,47 @@ public class ExcelReader {
 	}
 
 	@SuppressWarnings({ "resource", "deprecation" })
-	public void updateDealPricingcsvValues(String value, int row, int col) // throws Exception
+	public void updateDealPricingcsvValues(String acv, String tcv, String arr, String igmad) throws IOException // throws
+																												// Exception
 	{
+
 		File fileName = null;
-
+		CSVReader reader = null;
+		CSVWriter writer = null;
+		String[] row = null;
 		try {
-
-			 fileName = new File(FileNames.TestDataRelativePath + "\\" + "DealPricingCSVupload.csv");
-
+			fileName = new File(getPath() + "\\" + FileNames.TestDataRelativePath + "\\" + "DealPricingCSVupload.csv");
 			// Read existing file
-			CSVReader reader = new CSVReader(new FileReader(fileName), ',');
+			reader = new CSVReader(new FileReader(fileName), ',');
 			List<String[]> csvBody = reader.readAll();
+			System.out.println(csvBody.get(13)[1]);
+
 			// get CSV row column and replace with by using row and column
-			csvBody.get(row)[col] = value;
-			System.out.println(csvBody.get(row)[col]);
+			csvBody.get(13)[1] = acv;
+			System.out.println(csvBody.get(13)[1]);
+			csvBody.get(14)[1] = tcv;
+			csvBody.get(15)[1] = arr;
+			csvBody.get(22)[1] = igmad;
 			reader.close();
 
 			// Write to CSV file which is open
-			CSVWriter writer = new CSVWriter(new FileWriter(fileName), ',');
-			writer.writeAll(csvBody);
-			writer.flush();
-			writer.close();
-			
+			writer = new CSVWriter(new FileWriter(new File(getPath() + "\\" + FileNames.TestDataRelativePath
+					+ "\\New_folder\\" + "DealPricingCSVuploadNew.csv")), ',');
+			writer.writeAll(csvBody, false);
 			
 
 		} catch (Exception e) {
-			fileName.setReadable(true);
 
 			e.printStackTrace();
 
+		} finally {
+
+			writer.flush();
+			writer.close();
+			System.out.println("File has been closed");
+
 		}
+
 	}
 
 	public int getNumberofRows(String sheetName) throws IOException {
